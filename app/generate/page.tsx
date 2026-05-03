@@ -3,12 +3,10 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { Loader2, Zap, AlertCircle } from "lucide-react";
 import { UploadZone } from "@/components/generate/UploadZone";
-import { VibeSelector } from "@/components/generate/VibeSelector";
 import { ImageCard } from "@/components/generate/ImageCard";
 import { VideoPlayer } from "@/components/generate/VideoPlayer";
 import { ScriptCard } from "@/components/generate/ScriptCard";
 import { Navbar } from "@/components/ui/Navbar";
-import type { Vibe } from "@/lib/prompts";
 
 type Stage =
   | "idle"
@@ -50,7 +48,7 @@ const STAGE_LABELS: Record<Stage, string> = {
 
 export default function GeneratePage() {
   const [image, setImage] = useState<{ base64: string; mimeType: string; preview: string } | null>(null);
-  const [vibe, setVibe] = useState<Vibe>("Home");
+  const vibe = "Home" as const;
   const [stage, setStage] = useState<Stage>("idle");
   const [error, setError] = useState<string | null>(null);
   const [pack, setPack] = useState<AdPackState | null>(null);
@@ -226,8 +224,6 @@ export default function GeneratePage() {
               preview={image?.preview ?? null}
               onClear={() => { setImage(null); setPack(null); setStage("idle"); }}
             />
-
-            <VibeSelector selected={vibe} onChange={setVibe} />
 
             {/* Credit notice */}
             <p className="text-[11px] text-zinc-600">
