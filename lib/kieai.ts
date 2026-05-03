@@ -7,29 +7,45 @@ function headers() {
   };
 }
 
-export async function createImageTask(
+async function submitImageTask(
+  model: string,
   prompt: string,
-  aspectRatio: "1:1" | "9:16" | "16:9" = "1:1",
-  resolution: "1K" | "2K" = "2K"
-): Promise<string> {
+  aspectRatio: "1:1" | "9:16" | "16:9",
+  resolution: "1K" | "2K"
+): Promise<string | null> {
   const res = await fetch(`${KIEAI_BASE}/api/v1/jobs/createTask`, {
     method: "POST",
     headers: headers(),
     body: JSON.stringify({
-      model: "gpt-image-2-text-to-image",
+      model,
       input: { prompt, aspect_ratio: aspectRatio, resolution },
     }),
   });
-
   const data = await res.json();
+  if (res.ok && data.code === 200) return data.data.taskId as string;
+  console.error(`[kieai] ${model} failed: ${data.code} ${data.msg}`);
+  return null;
+}
 
-  if (!res.ok || data.code !== 200) {
-    throw new Error(
-      `KIEAI image task error ${data.code}: ${data.msg ?? "unknown"}`
-    );
+export type ImageModel = "nano-banana-2" | "gpt-image-2-text-to-image";
+
+export async function createImageTask(
+  prompt: string,
+  aspectRatio: "1:1" | "9:16" | "16:9" = "1:1",
+  resolution: "1K" | "2K" = "2K",
+  preferModel?: ImageModel
+): Promise<string> {
+  // nano-banana-2 (Google) is default primary — higher quality, better prompt adherence
+  const order: ImageModel[] = preferModel === "gpt-image-2-text-to-image"
+    ? ["gpt-image-2-text-to-image", "nano-banana-2"]
+    : ["nano-banana-2", "gpt-image-2-text-to-image"];
+
+  for (const model of order) {
+    const taskId = await submitImageTask(model, prompt, aspectRatio, resolution);
+    if (taskId) return taskId;
   }
 
-  return data.data.taskId as string;
+  throw new Error("Image task creation failed on all models");
 }
 
 export async function createVideoTask(
@@ -53,9 +69,7 @@ export async function createVideoTask(
   const data = await res.json();
 
   if (!res.ok || data.code !== 200) {
-    throw new Error(
-      `KIEAI video task error ${data.code}: ${data.msg ?? "unknown"}`
-    );
+    throw new Error(`KIEAI video task error ${data.code}: ${data.msg ?? "unknown"}`);
   }
 
   return data.data.taskId as string;
@@ -82,19 +96,16 @@ export async function getTaskStatus(taskId: string): Promise<TaskResult> {
   }
 
   const task = data.data;
-  const rawStatus: string = task.status ?? task.taskStatus ?? "";
+  const rawStatus: string = (task.status ?? task.taskStatus ?? "").toLowerCase();
 
-  const status: TaskStatus = rawStatus.toLowerCase().includes("complete") ||
-    rawStatus.toLowerCase().includes("success") ||
-    rawStatus === "finished"
-    ? "completed"
-    : rawStatus.toLowerCase().includes("fail") ||
-        rawStatus.toLowerCase().includes("error")
+  const status: TaskStatus =
+    rawStatus.includes("complete") || rawStatus.includes("success") || rawStatus === "finished"
+      ? "completed"
+      : rawStatus.includes("fail") || rawStatus.includes("error")
       ? "failed"
-      : rawStatus.toLowerCase().includes("process") ||
-          rawStatus.toLowerCase().includes("running")
-        ? "processing"
-        : "pending";
+      : rawStatus.includes("process") || rawStatus.includes("running") || rawStatus.includes("queue")
+      ? "processing"
+      : "pending";
 
   const outputUrl: string | undefined =
     task.output?.url ??
