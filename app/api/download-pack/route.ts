@@ -22,9 +22,9 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    const zipBuffer = await zip.generateAsync({ type: "uint8array" });
+    const zipBuffer = await zip.generateAsync({ type: "arraybuffer" });
 
-    return new NextResponse(zipBuffer, {
+    return new Response(zipBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/zip",
