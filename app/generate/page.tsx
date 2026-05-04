@@ -463,13 +463,15 @@ export default function GeneratePage() {
   ];
 
   // Flat carousel assets for the live pack
-  const packCarouselAssets: CarouselAsset[] = pack ? [
-    { url: pack.listing1.url ?? "", type: "image", label: "Listing 1" },
-    { url: pack.listing2.url ?? "", type: "image", label: "Listing 2" },
-    { url: pack.listing3.url ?? "", type: "image", label: "Listing 3" },
-    { url: pack.ugc.url ?? "",      type: "image", label: "UGC Photo" },
-    { url: pack.video.url ?? "",    type: "video", label: "Video" },
-  ].filter(a => a.url) : [];
+  const packCarouselAssets: CarouselAsset[] = pack ? (
+    [
+      { url: pack.listing1.url ?? "", type: "image" as const, label: "Listing 1" },
+      { url: pack.listing2.url ?? "", type: "image" as const, label: "Listing 2" },
+      { url: pack.listing3.url ?? "", type: "image" as const, label: "Listing 3" },
+      { url: pack.ugc.url ?? "",      type: "image" as const, label: "UGC Photo" },
+      { url: pack.video.url ?? "",    type: "video" as const, label: "Video" },
+    ] as CarouselAsset[]
+  ).filter(a => a.url) : [];
 
   return (
     <div className="min-h-screen bg-white text-black">
