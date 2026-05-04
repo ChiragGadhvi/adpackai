@@ -50,7 +50,6 @@ const STORAGE_KEY = "adpack_showcase";
 const MAX_SAVED = 10;
 
 const SAMPLE_AMAZON_PRODUCTS = [
-  { label: "Kissan Jam",      url: "https://www.amazon.in/Kissan-Mixed-Fruit-Jam-1-04/dp/B0795VHLZ7/" },
   { label: "Bare Anatomy",    url: "https://www.amazon.in/Bare-Anatomy-Anti-Dandruff-Shampoo-Targets/dp/B0BJZXKH12/" },
   { label: "Nescafé Classic", url: "https://www.amazon.in/NESCAFE-Classic-Instant-Robusta-Roasted/dp/B01C5IX1PA/" },
   { label: "Sample Product",  url: "https://www.amazon.in/dp/B0F6C7SL4Z/" },
