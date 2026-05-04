@@ -308,8 +308,6 @@ export default function GeneratePage() {
     imageUrls: string[];
   } | null>(null);
 
-  const [samplePrefetch, setSamplePrefetch] = useState<Record<string, ScrapedData | "loading" | "error">>({});
-  const prefetchDoneRef = useRef(false);
 
   useEffect(() => {
     setSavedPacks(loadSavedPacks());
@@ -325,23 +323,6 @@ export default function GeneratePage() {
       .catch(() => { /* no seed file — fine */ });
     return () => { abortRef.current = true; };
   }, []);
-
-  useEffect(() => {
-    if (inputMode !== "url" || prefetchDoneRef.current) return;
-    prefetchDoneRef.current = true;
-    const uniqueUrls = [...new Set(SAMPLE_AMAZON_PRODUCTS.map(s => s.url))];
-    setSamplePrefetch(Object.fromEntries(uniqueUrls.map(u => [u, "loading"])));
-    uniqueUrls.forEach(url => {
-      fetch("/api/scrape-amazon", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      })
-        .then(r => r.json().then((data: ScrapedData) => ({ ok: r.ok, data })))
-        .then(({ ok, data }) => setSamplePrefetch(prev => ({ ...prev, [url]: ok ? data : "error" })))
-        .catch(() => setSamplePrefetch(prev => ({ ...prev, [url]: "error" })));
-    });
-  }, [inputMode]);
 
   function updateAsset(key: keyof AdPack, patch: Partial<Asset>) {
     setPack((prev) =>
@@ -703,33 +684,18 @@ export default function GeneratePage() {
                       Or try a sample
                     </p>
                     <div className="grid grid-cols-4 gap-1.5">
-                      {SAMPLE_AMAZON_PRODUCTS.map((s, i) => {
-                        const prefetched = samplePrefetch[s.url];
-                        const isLoading = prefetched === "loading" || prefetched === undefined;
-                        const thumbUrl = typeof prefetched === "object" ? prefetched?.imageUrls?.[0] : undefined;
-                        return (
-                          <button
-                            key={`${s.url}-${i}`}
-                            disabled={scraping || isLoading}
-                            onClick={() => {
-                              if (typeof prefetched !== "object" || !prefetched) return;
-                              setAmazonUrl(s.url);
-                              setScrapedProduct(prefetched);
-                            }}
-                            className="relative rounded-lg overflow-hidden border border-black/[0.08] aspect-square bg-zinc-50 hover:border-black/30 hover:bg-zinc-100 transition-all disabled:opacity-50 flex flex-col items-center justify-center gap-1 p-1"
-                            title={s.label}
-                          >
-                            {isLoading ? (
-                              <div className="w-3 h-3 border border-black/30 border-t-black rounded-full animate-spin" />
-                            ) : thumbUrl ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img src={thumbUrl} alt={s.label} className="w-full h-full object-contain" />
-                            ) : (
-                              <span className="text-[9px] text-center leading-tight px-1" style={{ color: "#6F6F6F" }}>{s.label}</span>
-                            )}
-                          </button>
-                        );
-                      })}
+                      {SAMPLE_AMAZON_PRODUCTS.map((s, i) => (
+                        <button
+                          key={`${s.url}-${i}`}
+                          disabled={scraping}
+                          onClick={() => { setAmazonUrl(s.url); scrapeUrl(s.url); }}
+                          className="rounded-lg border border-black/[0.08] px-1.5 py-2 text-[10px] font-medium text-center hover:border-black/30 hover:bg-zinc-50 transition-all disabled:opacity-40 leading-tight"
+                          style={{ color: "#6F6F6F" }}
+                          title={s.label}
+                        >
+                          <span className="line-clamp-2">{s.label}</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
                 )}
