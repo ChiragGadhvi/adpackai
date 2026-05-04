@@ -7,45 +7,26 @@ function headers() {
   };
 }
 
-async function submitImageTask(
-  model: string,
-  prompt: string,
-  aspectRatio: "1:1" | "9:16" | "16:9",
-  resolution: "1K" | "2K"
-): Promise<string | null> {
-  const res = await fetch(`${KIEAI_BASE}/api/v1/jobs/createTask`, {
-    method: "POST",
-    headers: headers(),
-    body: JSON.stringify({
-      model,
-      input: { prompt, aspect_ratio: aspectRatio, resolution },
-    }),
-  });
-  const data = await res.json();
-  if (res.ok && data.code === 200) return data.data.taskId as string;
-  console.error(`[kieai] ${model} failed: ${data.code} ${data.msg}`);
-  return null;
-}
-
-export type ImageModel = "nano-banana-2" | "gpt-image-2-text-to-image";
-
 export async function createImageTask(
   prompt: string,
   aspectRatio: "1:1" | "9:16" | "16:9" = "1:1",
   resolution: "1K" | "2K" = "2K",
-  preferModel?: ImageModel
+  model = "gpt-image-2-text-to-image",
+  referenceImageUrl?: string
 ): Promise<string> {
-  // nano-banana-2 (Google) is default primary — higher quality, better prompt adherence
-  const order: ImageModel[] = preferModel === "gpt-image-2-text-to-image"
-    ? ["gpt-image-2-text-to-image", "nano-banana-2"]
-    : ["nano-banana-2", "gpt-image-2-text-to-image"];
+  const input: Record<string, unknown> = { prompt, aspect_ratio: aspectRatio, resolution };
+  if (referenceImageUrl) input.image_url = referenceImageUrl;
 
-  for (const model of order) {
-    const taskId = await submitImageTask(model, prompt, aspectRatio, resolution);
-    if (taskId) return taskId;
+  const res = await fetch(`${KIEAI_BASE}/api/v1/jobs/createTask`, {
+    method: "POST",
+    headers: headers(),
+    body: JSON.stringify({ model, input }),
+  });
+  const data = await res.json();
+  if (!res.ok || data.code !== 200) {
+    throw new Error(`KIEAI image task error ${data.code}: ${data.msg ?? "unknown"}`);
   }
-
-  throw new Error("Image task creation failed on all models");
+  return data.data.taskId as string;
 }
 
 export async function createVideoTask(
@@ -60,18 +41,15 @@ export async function createVideoTask(
       input: {
         prompt,
         image_urls: [imageUrl],
-        sound: false,
+        sound: true,
         duration: "5",
       },
     }),
   });
-
   const data = await res.json();
-
   if (!res.ok || data.code !== 200) {
     throw new Error(`KIEAI video task error ${data.code}: ${data.msg ?? "unknown"}`);
   }
-
   return data.data.taskId as string;
 }
 
@@ -85,7 +63,7 @@ export interface TaskResult {
 
 export async function getTaskStatus(taskId: string): Promise<TaskResult> {
   const res = await fetch(
-    `${KIEAI_BASE}/api/v1/jobs/getTask?taskId=${taskId}`,
+    `${KIEAI_BASE}/api/v1/jobs/recordInfo?taskId=${taskId}`,
     { headers: headers() }
   );
 
@@ -96,24 +74,28 @@ export async function getTaskStatus(taskId: string): Promise<TaskResult> {
   }
 
   const task = data.data;
-  const rawStatus: string = (task.status ?? task.taskStatus ?? "").toLowerCase();
+  // API states: waiting | queuing | generating | success | fail
+  const state: string = (task.state ?? "").toLowerCase();
 
   const status: TaskStatus =
-    rawStatus.includes("complete") || rawStatus.includes("success") || rawStatus === "finished"
+    state === "success"
       ? "completed"
-      : rawStatus.includes("fail") || rawStatus.includes("error")
+      : state === "fail"
       ? "failed"
-      : rawStatus.includes("process") || rawStatus.includes("running") || rawStatus.includes("queue")
+      : state === "generating" || state === "queuing"
       ? "processing"
       : "pending";
 
-  const outputUrl: string | undefined =
-    task.output?.url ??
-    task.output?.imageUrl ??
-    task.output?.videoUrl ??
-    task.resultUrl ??
-    task.output?.[0]?.url ??
-    undefined;
+  // resultJson is a JSON string: {"resultUrls":["https://..."]}
+  let outputUrl: string | undefined;
+  if (state === "success" && task.resultJson) {
+    try {
+      const result = JSON.parse(task.resultJson as string);
+      outputUrl = result.resultUrls?.[0];
+    } catch {
+      // ignore parse error
+    }
+  }
 
   return { status, outputUrl };
 }

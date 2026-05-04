@@ -12,9 +12,12 @@ interface AssetCardProps {
   status: AssetStatus;
   url?: string;
   prompt?: string;
+  compact?: boolean;
+  aspectRatio?: string;
+  onView?: () => void;
 }
 
-export function AssetCard({ label, type, status, url, prompt }: AssetCardProps) {
+export function AssetCard({ label, type, status, url, prompt, compact = false, aspectRatio, onView }: AssetCardProps) {
   const [copied, setCopied] = useState(false);
   const [promptOpen, setPromptOpen] = useState(false);
 
@@ -38,22 +41,21 @@ export function AssetCard({ label, type, status, url, prompt }: AssetCardProps) 
   const isLoading = status === "queued" || status === "generating";
   const isFailed = status === "failed";
 
+  const resolvedAspectRatio = aspectRatio ?? "1/1";
+
   return (
     <div className="flex flex-col gap-0" style={{ fontFamily: "var(--font-inter)" }}>
       {/* Header row */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <span
-            className="text-xs font-medium tracking-wider uppercase"
+            className={compact ? "text-[10px] font-medium uppercase tracking-wider" : "text-xs font-medium tracking-wider uppercase"}
             style={{ color: isDone ? "#000" : "#a1a1aa" }}
           >
             {label}
           </span>
           {status === "generating" && (
-            <span
-              className="text-xs"
-              style={{ color: "#6F6F6F", fontStyle: "italic" }}
-            >
+            <span className="text-xs" style={{ color: "#6F6F6F", fontStyle: "italic" }}>
               generating…
             </span>
           )}
@@ -68,9 +70,7 @@ export function AssetCard({ label, type, status, url, prompt }: AssetCardProps) 
                 className="rounded-full p-1.5 transition-colors hover:bg-black/5"
                 style={{ color: "#a1a1aa" }}
               >
-                {copied
-                  ? <Check size={12} style={{ color: "#22c55e" }} />
-                  : <Copy size={12} />}
+                {copied ? <Check size={12} style={{ color: "#22c55e" }} /> : <Copy size={12} />}
               </button>
             )}
             <button
@@ -85,64 +85,64 @@ export function AssetCard({ label, type, status, url, prompt }: AssetCardProps) 
         )}
       </div>
 
-      {/* Asset display */}
-      <div
-        className="overflow-hidden rounded-xl border"
-        style={{
-          borderColor: isDone ? "rgba(0,0,0,0.06)" : "rgba(0,0,0,0.06)",
-          background: "#fafafa",
-          aspectRatio: type === "video" ? "16/9" : "1/1",
-          position: "relative",
-        }}
-      >
-        {isLoading && (
-          <div className="absolute inset-0">
-            <Skeleton
-              variant={type === "video" ? "video" : "image"}
-              className="w-full h-full rounded-none"
+      {/* Asset display — skeleton/idle uses fixed aspect ratio; done media shows at natural ratio */}
+      {isDone ? (
+        <div
+          className={`overflow-hidden rounded-xl border${onView ? " cursor-zoom-in" : ""}`}
+          style={{ borderColor: "rgba(0,0,0,0.06)", background: "#000" }}
+          onClick={onView}
+        >
+          {type === "image" ? (
+            <img
+              src={url}
+              alt={label}
+              className="w-full h-auto block"
+              style={{ animation: "fade-rise 0.5s ease-out forwards" }}
             />
-          </div>
-        )}
-
-        {isFailed && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-xs" style={{ color: "#ef4444" }}>Generation failed</p>
-          </div>
-        )}
-
-        {isDone && type === "image" && (
-          <img
-            src={url}
-            alt={label}
-            className="w-full h-full object-cover"
-            style={{
-              animation: "fade-rise 0.5s ease-out forwards",
-            }}
-          />
-        )}
-
-        {isDone && type === "video" && (
-          <video
-            src={url}
-            controls
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            style={{ animation: "fade-rise 0.5s ease-out forwards" }}
-          />
-        )}
-
-        {(status === "idle") && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="w-2 h-2 rounded-full"
-              style={{ background: "#e4e4e7" }}
+          ) : (
+            <video
+              src={url}
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-auto block"
+              style={{ animation: "fade-rise 0.5s ease-out forwards" }}
+              onClick={(e) => e.stopPropagation()}
             />
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className="overflow-hidden rounded-xl border"
+          style={{
+            borderColor: "rgba(0,0,0,0.06)",
+            background: "#fafafa",
+            aspectRatio: resolvedAspectRatio,
+            position: "relative",
+          }}
+        >
+          {isLoading && (
+            <div className="absolute inset-0">
+              <Skeleton
+                variant={type === "video" ? "video" : "image"}
+                className="w-full h-full rounded-none"
+              />
+            </div>
+          )}
+          {isFailed && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <p className="text-xs" style={{ color: "#ef4444" }}>Generation failed</p>
+            </div>
+          )}
+          {status === "idle" && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full" style={{ background: "#e4e4e7" }} />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Prompt drawer */}
       {isDone && prompt && (

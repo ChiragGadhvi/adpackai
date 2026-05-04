@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createImageTask, createVideoTask, type ImageModel } from "@/lib/kieai";
+import { createImageTask, createVideoTask } from "@/lib/kieai";
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,7 +8,8 @@ export async function POST(req: NextRequest) {
       prompt: string;
       aspectRatio?: "1:1" | "9:16" | "16:9";
       imageUrl?: string;
-      preferModel?: ImageModel;
+      model?: string;
+      referenceImageUrl?: string;
     };
 
     let taskId: string;
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
       }
       taskId = await createVideoTask(body.prompt, body.imageUrl);
     } else {
-      taskId = await createImageTask(body.prompt, body.aspectRatio ?? "1:1", "2K", body.preferModel);
+      taskId = await createImageTask(body.prompt, body.aspectRatio ?? "1:1", "2K", body.model, body.referenceImageUrl);
     }
 
     return NextResponse.json({ taskId });

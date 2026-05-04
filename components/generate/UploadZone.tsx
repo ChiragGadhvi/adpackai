@@ -34,12 +34,12 @@ export function UploadZone({ onImageSelect, preview, onClear }: UploadZoneProps)
 
   if (preview) {
     return (
-      <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-square">
+      <div className="relative rounded-xl overflow-hidden border border-black/[0.08] aspect-square bg-zinc-50 flex items-center justify-center">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={preview} alt="Product" className="w-full h-full object-cover" />
+        <img src={preview} alt="Product" className="w-full h-full object-contain p-3" />
         <button
           onClick={onClear}
-          className="absolute top-2 right-2 rounded-full bg-black/70 p-1.5 text-white hover:bg-black transition-colors"
+          className="absolute top-2 right-2 rounded-full bg-black/60 p-1.5 text-white hover:bg-black transition-colors"
         >
           <X size={14} />
         </button>

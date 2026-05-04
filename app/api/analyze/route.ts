@@ -21,11 +21,7 @@ async function callGemini(messages: { role: string; content: unknown }[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { image, mimeType } = await req.json() as {
-      image: string;
-      mimeType: string;
-    };
-
+    const { image, mimeType } = await req.json() as { image: string; mimeType: string };
     if (!image || !mimeType) {
       return NextResponse.json({ error: "Missing image or mimeType" }, { status: 400 });
     }
@@ -33,40 +29,51 @@ export async function POST(req: NextRequest) {
     const raw = await callGemini([
       {
         role: "system",
-        content: `You are a product analyst and creative director. Study the product photo and return a JSON object.
+        content: `You are an expert Amazon product listing strategist and AI prompt engineer. Analyze the product image and extract every visual detail: exact product name, colors, materials, ingredients/components, brand style, target audience, key benefits, and where it's used.
 
-You will write five SHORT text prompts (under 350 characters each). These prompts are input strings for an AI image generator called Nano Banana 2. Write them as vivid visual scene descriptions — specific nouns, colors, materials, lighting. No meta-language. No instructions. No "a photo of". Just describe the scene.
+Then write 5 AI image generation prompts using the professional templates below. Fill every [BRACKET] with specific details from the actual product — never leave brackets or say "product name", always use the real name and specifics.
 
-EXAMPLE of a great prompt:
-"Gleaming stainless steel insulated water bottle, pure white seamless background, soft box key light upper-left, specular highlights on brushed metal surface, crisp rim light, Amazon hero product shot, 8K, photorealistic"
+Return ONLY raw JSON starting with { and ending with }. No markdown, no code fences.
 
-EXAMPLE of a bad prompt (do not write like this):
-"A professional product photograph showing the bottle on a white background with good lighting"
+---
 
-Return ONLY raw JSON starting with { and ending with }. No markdown, no code fences, no explanation.
+TEMPLATE A — Slide 01 Hero Shot (use for listing1):
+"Product photography of [ACTUAL PRODUCT NAME] on a clean [SPECIFIC COMPLEMENTARY COLOR] background. The [bottle/box/pouch/can] is centered and sharp. Scattered around it: [2-3 SPECIFIC REAL INGREDIENTS OR PROPS]. At the top-left, bold serif headline reads '[MAIN BENEFIT CLAIM]'. Bottom strip shows '[SECONDARY CLAIM]'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo."
 
+TEMPLATE B — Slide 02 Benefits Infographic (use for listing2):
+"Amazon listing infographic for [ACTUAL PRODUCT NAME]. [SPECIFIC COLOR SCHEME matching brand]. Left side: product photo with floating [SPECIFIC BOTANICAL/INGREDIENT ELEMENTS]. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: '[BENEFIT 1]', '[BENEFIT 2]', '[BENEFIT 3]', '[BENEFIT 4]', '[BENEFIT 5]'. Top headline: '[HERO CLAIM]'. Clean modern layout, ecommerce infographic style, high resolution."
+
+TEMPLATE C — Slide 07 Lifestyle (use for listing3):
+"Amazon listing lifestyle photo for [ACTUAL PRODUCT NAME]. [SPECIFIC SETTING e.g. bright modern kitchen, sunlit gym, cozy bathroom]. A [SPECIFIC PERSON matching target audience, e.g. 'woman in her 30s doing yoga'] is shown [SPECIFIC ACTIVITY]. The product is visible in the foreground. Headline overlay: '[LIFESTYLE CLAIM]'. Subtext: '[EMOTIONAL HOOK]'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution."
+
+TEMPLATE D — In-Car UGC Photo (use for ugc):
+"9:16 vertical portrait. [SPECIFIC PERSON matching target audience, e.g. 'attractive woman in her late 20s'] sitting in driver seat of a modern car. Holding [ACTUAL PRODUCT NAME] up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays."
+
+TEMPLATE E — In-Car UGC Video (use for video):
+"9:16 vertical UGC video. [SPECIFIC PERSON matching target audience] sitting in parked car, [ACTUAL PRODUCT NAME] resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic."
+
+---
+
+JSON format:
 {
   "analysis": {
-    "productName": "exact product name from label or description",
+    "productName": "exact product name from image",
     "productCategory": "category",
-    "keyBenefits": ["short benefit 1", "short benefit 2", "short benefit 3"],
-    "brandStyle": "one phrase e.g. bold retro / minimalist clean / natural organic",
-    "targetAudience": "specific demographic",
+    "keyBenefits": ["specific benefit 1", "specific benefit 2", "specific benefit 3"],
+    "brandStyle": "e.g. bold vibrant / minimalist clean / natural wellness",
+    "targetAudience": "specific person description",
     "primaryColor": "#hexcode",
-    "accentColor": "#hexcode",
-    "usageEnvironment": "specific place e.g. gym locker room / kitchen countertop / office desk"
+    "usageEnvironment": "specific place"
   },
   "prompts": {
-    "listing1": "[Product name and exact color/material], pure white seamless background, three-point studio lighting, key light upper-left 45 degrees, soft fill light, rim light, product centered, razor-sharp focus, specular highlights on [specific material finish], no people, no props, bold text overlay bottom third reading '[top benefit]', Amazon hero listing image, 8K, photorealistic",
-    "listing2": "[Product name], white background, 3/4 close-up angle, [specific material and texture detail visible], three clean annotation arrows pointing to [feature 1], [feature 2], [feature 3] with label text, [primary color] accent, e-commerce infographic style, high contrast, 8K photorealistic",
-    "listing3": "[Product name] on [specific surface] in [usage environment], [complementary props matching the vibe], warm golden-hour window light, shallow depth of field, [primary color] color grade, premium [brand style] lifestyle shot, no text, no people, 8K photorealistic",
-    "ugc": "9:16 vertical portrait photo, [specific person matching target audience] casually holding [product name] in [usage environment], natural diffused window light, candid slight camera tilt, authentic moment, product clearly visible, background softly blurred showing [environment], ISO 800 film grain, iPhone camera look, not staged, not an ad",
-    "video": "9:16 vertical close-up of [product name] being used in [usage environment], natural handheld camera movement, soft ambient light, [specific product action e.g. being opened / poured / applied], authentic UGC social media style, photorealistic"
+    "listing1": "[filled Template A — no brackets remaining]",
+    "listing2": "[filled Template B — no brackets remaining]",
+    "listing3": "[filled Template C — no brackets remaining]",
+    "ugc": "[filled Template D — no brackets remaining]",
+    "video": "[filled Template E — no brackets remaining]"
   },
-  "adScript": "Hook line (surprised tone, 1 sentence). Product action proof (1-2 sentences, specific). Punchline reaction (1 sentence). Total under 45 words. Casual speech, no hashtags."
-}
-
-Replace every placeholder with exact details from the image. Be hyper-specific: name the color, the material, the exact environment, the exact action. Vague prompts produce bad images.`,
+  "adScript": "Hook sentence (surprised tone). Proof sentence (specific product action). Punchline reaction. Total under 45 words. Casual spoken English."
+}`,
       },
       {
         role: "user",
@@ -77,18 +84,13 @@ Replace every placeholder with exact details from the image. Be hyper-specific: 
           },
           {
             type: "text",
-            text: "Analyze this product. Return the JSON with specific, vivid prompts. Replace every placeholder with real details from this image.",
+            text: "Analyze this product image carefully. Fill every bracket in the templates with real, specific details from this product. Return the complete JSON.",
           },
         ],
       },
     ]);
 
-    // Strip markdown fences if present
-    const cleaned = raw
-      .replace(/^```(?:json)?\s*/m, "")
-      .replace(/\s*```\s*$/m, "")
-      .trim();
-
+    const cleaned = raw.replace(/^```(?:json)?\s*/m, "").replace(/\s*```\s*$/m, "").trim();
     const parsed = JSON.parse(cleaned);
 
     return NextResponse.json({
