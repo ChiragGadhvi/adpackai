@@ -16,7 +16,7 @@ function LogoIcon({ size = 28 }: { size?: number }) {
 export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-black/[0.06] bg-white/90 backdrop-blur-md">
-      <div className="mx-auto max-w-6xl px-8 h-14 flex items-center justify-between">
+      <div className="mx-auto max-w-6xl px-4 sm:px-8 h-14 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
           <LogoIcon size={28} />
           <span

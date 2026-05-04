@@ -214,7 +214,7 @@ function ShowcaseCard({ saved, onDelete, readOnly = false }: { saved: SavedPack;
       {/* Asset bento grid */}
       <div className="flex flex-col gap-2">
         {/* Listing images — 3 columns, square */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {saved.assets.map((asset, i) => asset.aspectRatio !== "9/16" ? (
             <AssetCard
               key={asset.label}
@@ -511,7 +511,7 @@ export default function GeneratePage() {
     <div className="min-h-screen bg-white text-black">
       <Navbar />
 
-      <div className="mx-auto max-w-6xl px-6 pt-20 pb-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-20 pb-20">
         <div className="grid grid-cols-1 lg:grid-cols-[340px_1fr] gap-10 items-start">
 
           {/* ── Left panel (sticky) ── */}
@@ -604,26 +604,26 @@ export default function GeneratePage() {
                 <p className="text-[10px] font-medium tracking-widest uppercase mb-4" style={{ color: "#a1a1aa" }}>
                   Amazon Listing Images
                 </p>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <AssetCard label="Listing 1" type="image" aspectRatio="1/1" status={pack.listing1.status} url={pack.listing1.url} prompt={pack.listing1.prompt} onView={() => setCarouselIdx(0)} />
                   <AssetCard label="Listing 2" type="image" aspectRatio="1/1" status={pack.listing2.status} url={pack.listing2.url} prompt={pack.listing2.prompt} onView={() => setCarouselIdx(1)} />
                   <AssetCard label="Listing 3" type="image" aspectRatio="1/1" status={pack.listing3.status} url={pack.listing3.url} prompt={pack.listing3.prompt} onView={() => setCarouselIdx(2)} />
                 </div>
               </div>
 
-              {/* UGC photo + video — fixed-width 9:16 cards */}
-              <div className="flex gap-6">
-                <div style={{ width: 195, flexShrink: 0 }}>
+              {/* UGC photo + video — each in its own row, 4:5 ratio */}
+              <div className="flex flex-col gap-4">
+                <div>
                   <p className="text-[10px] font-medium tracking-widest uppercase mb-2" style={{ color: "#a1a1aa" }}>
                     UGC Photo
                   </p>
-                  <AssetCard label="UGC Photo" type="image" aspectRatio="9/16" status={pack.ugc.status} url={pack.ugc.url} prompt={pack.ugc.prompt} onView={() => setCarouselIdx(3)} />
+                  <AssetCard label="UGC Photo" type="image" aspectRatio="4/5" status={pack.ugc.status} url={pack.ugc.url} prompt={pack.ugc.prompt} onView={() => setCarouselIdx(3)} />
                 </div>
-                <div style={{ width: 195, flexShrink: 0 }}>
+                <div>
                   <p className="text-[10px] font-medium tracking-widest uppercase mb-2" style={{ color: "#a1a1aa" }}>
                     UGC Video
                   </p>
-                  <AssetCard label="Video" type="video" aspectRatio="9/16" status={pack.video.status} url={pack.video.url} prompt={pack.video.prompt} onView={() => setCarouselIdx(4)} />
+                  <AssetCard label="Video" type="video" aspectRatio="4/5" status={pack.video.status} url={pack.video.url} prompt={pack.video.prompt} onView={() => setCarouselIdx(4)} />
                 </div>
               </div>
 
@@ -672,7 +672,7 @@ export default function GeneratePage() {
         {/* ── Showcase gallery ── */}
         {(savedPacks.length > 0 || seedPacks.length > 0) && (
           <div className="mt-24">
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h2
                   className="font-normal"

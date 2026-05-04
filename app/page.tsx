@@ -44,7 +44,7 @@ export default function Home() {
         className="fixed top-0 left-0 right-0"
         style={{ zIndex: 50 }}
       >
-        <div className="mx-auto max-w-6xl px-8 h-16 flex items-center justify-between">
+        <div className="mx-auto max-w-6xl px-4 sm:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <LogoIcon size={28} />
             <span
