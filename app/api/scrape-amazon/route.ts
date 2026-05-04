@@ -3,10 +3,17 @@ import * as cheerio from "cheerio";
 
 const BROWSER_HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-  "Accept-Language": "en-IN,en;q=0.9",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+  "Accept-Language": "en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7",
   "Accept-Encoding": "gzip, deflate, br",
   "Cache-Control": "no-cache",
+  "Pragma": "no-cache",
+  "Sec-Fetch-Dest": "document",
+  "Sec-Fetch-Mode": "navigate",
+  "Sec-Fetch-Site": "none",
+  "Sec-Fetch-User": "?1",
+  "Upgrade-Insecure-Requests": "1",
+  "DNT": "1",
 };
 
 export async function POST(req: NextRequest) {
@@ -18,7 +25,10 @@ export async function POST(req: NextRequest) {
 
   let html: string;
   try {
-    const res = await fetch(url, { headers: BROWSER_HEADERS });
+    const res = await fetch(url, {
+      headers: BROWSER_HEADERS,
+      redirect: "follow",
+    });
     if (!res.ok) {
       return NextResponse.json(
         { error: `Amazon returned ${res.status} — please upload the product image manually instead` },
@@ -37,13 +47,16 @@ export async function POST(req: NextRequest) {
 
   const title =
     $("#productTitle").text().trim() ||
+    $('[data-feature-name="title"] h1').text().trim() ||
+    $("h1.a-size-large").text().trim() ||
     $("h1").first().text().trim();
 
   const brand =
+    $("#bylineInfo a").first().text().trim() ||
     $("#bylineInfo").text()
-      .replace("Brand:", "")
-      .replace("Visit the", "")
-      .replace("Store", "")
+      .replace(/^Brand:/i, "")
+      .replace(/^Visit the/i, "")
+      .replace(/Store$/i, "")
       .trim() ||
     $("[data-feature-name='bylineInfo'] a").first().text().trim();
 
@@ -71,6 +84,14 @@ export async function POST(req: NextRequest) {
         } catch { /* ignore */ }
       }
     });
+  }
+
+  // Last resort: any m.media-amazon.com image in the page
+  if (imageUrls.length === 0) {
+    const matches = html.match(/https:\/\/m\.media-amazon\.com\/images\/I\/[^"' ]+\.jpg/g);
+    if (matches) {
+      imageUrls.push(...[...new Set(matches)].filter(u => !u.includes("sprite") && !u.includes("icon")).slice(0, 3));
+    }
   }
 
   if (!title) {

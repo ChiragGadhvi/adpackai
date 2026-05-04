@@ -337,8 +337,8 @@ export default function GeneratePage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
       })
-        .then(r => r.json())
-        .then((data: ScrapedData) => setSamplePrefetch(prev => ({ ...prev, [url]: data })))
+        .then(r => r.json().then((data: ScrapedData) => ({ ok: r.ok, data })))
+        .then(({ ok, data }) => setSamplePrefetch(prev => ({ ...prev, [url]: ok ? data : "error" })))
         .catch(() => setSamplePrefetch(prev => ({ ...prev, [url]: "error" })));
     });
   }, [inputMode]);
@@ -446,11 +446,15 @@ export default function GeneratePage() {
 
       if (inputMode === "url" && scrapedProduct) {
         // Use Amazon image URL directly — no upload needed
-        refImageUrl = scrapedProduct.imageUrls[0];
+        refImageUrl = scrapedProduct.imageUrls?.[0];
         aRes = await fetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ imageUrl: refImageUrl }),
+          body: JSON.stringify(
+            refImageUrl
+              ? { imageUrl: refImageUrl }
+              : { image: image?.base64, mimeType: image?.mimeType }
+          ),
         });
       } else {
         aRes = await fetch("/api/analyze", {
@@ -702,7 +706,7 @@ export default function GeneratePage() {
                       {SAMPLE_AMAZON_PRODUCTS.map((s, i) => {
                         const prefetched = samplePrefetch[s.url];
                         const isLoading = prefetched === "loading" || prefetched === undefined;
-                        const thumbUrl = typeof prefetched === "object" ? prefetched?.imageUrls[0] : undefined;
+                        const thumbUrl = typeof prefetched === "object" ? prefetched?.imageUrls?.[0] : undefined;
                         return (
                           <button
                             key={`${s.url}-${i}`}
