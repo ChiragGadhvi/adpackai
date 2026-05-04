@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777891258185",
+    "createdAt": 1777891258185,
+    "productName": "Garnier Bright Complete Vitamin C Serum Cleanser XL Pack",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/na2/1237afbc42f4a001687ea3b0d032f36c1394613.jpeg",
+        "prompt": "Product photography of Garnier Bright Complete Vitamin C Serum Cleanser XL Pack on a clean light grey background. The pouch is centered and sharp. Scattered around it: fresh orange slices, vitamin C serum droplets, and clear water bubbles. At the top-left, bold serif headline reads 'BRIGHTENS LIKE A SERUM'. Bottom strip shows 'VISIBLY BRIGHTER SKIN IN 1 WASH'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/bdfa771246ad793735dc84df1cd8c108_1777891076.jpeg",
+        "prompt": "Amazon listing infographic for Garnier Bright Complete Vitamin C Serum Cleanser XL Pack. White, orange, and yellow color scheme matching brand. Left side: product photo with floating orange peels and vitamin C droplets. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'SERUM-LIKE BRIGHTENING', 'INSTANTLY BRIGHTER SKIN', 'DERMATOLOGICALLY TESTED', 'SUITABLE FOR ALL SKIN TYPES', 'XL PACK VALUE'. Top headline: 'UNLOCK RADIANT SKIN WITH VITAMIN C'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/dfb5a135af0fd6c77502dbb60c3f1d1d_1777891071.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Garnier Bright Complete Vitamin C Serum Cleanser XL Pack. A bright modern bathroom vanity with natural light. A woman in her late 20s with glowing skin is shown gently washing her face with the cleanser, eyes closed in contentment. The product is visible on the edge of the sink. Headline overlay: 'YOUR DAILY DOSE OF RADIANCE'. Subtext: 'Experience the visible glow, every day.'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/366673c1362a89928bdb5313e1c2a559_1777891131.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Garnier Bright Complete Vitamin C Serum Cleanser XL Pack up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/k/5c96f0c843f877b2ea211b5a13a2c6c2_1_1777891231_8422.mp4",
+        "prompt": "9:16 vertical UGC video. Person in their 20s-30s with clear skin sitting in parked car, Garnier Bright Complete Vitamin C Serum Cleanser XL Pack resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Wow, this actually makes my skin glow!\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wow, this actually makes my skin glow!"
+  },
+  {
     "id": "1777888010206",
     "createdAt": 1777888010206,
     "productName": "Garnier Men TurboBright Brightening Face Wash",

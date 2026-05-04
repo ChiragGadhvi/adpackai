@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Loader2, Zap, AlertCircle, Archive } from "lucide-react";
+import { Loader2, Zap, AlertCircle, Archive, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { UploadZone } from "@/components/generate/UploadZone";
 import { AssetCard } from "@/components/generate/AssetCard";
 import { StepTracker } from "@/components/generate/StepTracker";
@@ -43,8 +44,17 @@ interface SavedPack {
   adScript?: string;
 }
 
+type ScrapedData = { title: string; brand: string; bullets: string[]; imageUrls: string[] };
+
 const STORAGE_KEY = "adpack_showcase";
 const MAX_SAVED = 10;
+
+const SAMPLE_AMAZON_PRODUCTS = [
+  { label: "Kissan Jam",      url: "https://www.amazon.in/Kissan-Mixed-Fruit-Jam-1-04/dp/B0795VHLZ7/" },
+  { label: "Bare Anatomy",    url: "https://www.amazon.in/Bare-Anatomy-Anti-Dandruff-Shampoo-Targets/dp/B0BJZXKH12/" },
+  { label: "Nescafé Classic", url: "https://www.amazon.in/NESCAFE-Classic-Instant-Robusta-Roasted/dp/B01C5IX1PA/" },
+  { label: "Sample Product",  url: "https://www.amazon.in/dp/B0F6C7SL4Z/" },
+];
 
 const queuedAsset = (prompt?: string): Asset => ({ status: "queued", prompt });
 
@@ -288,6 +298,19 @@ export default function GeneratePage() {
   const abortRef = useRef<boolean>(false);
   const hasSavedRef = useRef(false);
 
+  const [inputMode, setInputMode] = useState<"upload" | "url">("upload");
+  const [amazonUrl, setAmazonUrl] = useState("");
+  const [scraping, setScraping] = useState(false);
+  const [scrapedProduct, setScrapedProduct] = useState<{
+    title: string;
+    brand: string;
+    bullets: string[];
+    imageUrls: string[];
+  } | null>(null);
+
+  const [samplePrefetch, setSamplePrefetch] = useState<Record<string, ScrapedData | "loading" | "error">>({});
+  const prefetchDoneRef = useRef(false);
+
   useEffect(() => {
     setSavedPacks(loadSavedPacks());
     // Load seed packs committed to the repo (visible in production)
@@ -302,6 +325,23 @@ export default function GeneratePage() {
       .catch(() => { /* no seed file — fine */ });
     return () => { abortRef.current = true; };
   }, []);
+
+  useEffect(() => {
+    if (inputMode !== "url" || prefetchDoneRef.current) return;
+    prefetchDoneRef.current = true;
+    const uniqueUrls = [...new Set(SAMPLE_AMAZON_PRODUCTS.map(s => s.url))];
+    setSamplePrefetch(Object.fromEntries(uniqueUrls.map(u => [u, "loading"])));
+    uniqueUrls.forEach(url => {
+      fetch("/api/scrape-amazon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      })
+        .then(r => r.json())
+        .then((data: ScrapedData) => setSamplePrefetch(prev => ({ ...prev, [url]: data })))
+        .catch(() => setSamplePrefetch(prev => ({ ...prev, [url]: "error" })));
+    });
+  }, [inputMode]);
 
   function updateAsset(key: keyof AdPack, patch: Partial<Asset>) {
     setPack((prev) =>
@@ -364,8 +404,33 @@ export default function GeneratePage() {
     }
   }
 
+  async function scrapeUrl(url: string) {
+    setScraping(true);
+    setError(null);
+    setScrapedProduct(null);
+    try {
+      const res = await fetch("/api/scrape-amazon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Scrape failed");
+      setScrapedProduct(data);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to read Amazon page");
+    }
+    setScraping(false);
+  }
+
+  async function handleScrape() {
+    if (!amazonUrl) return;
+    await scrapeUrl(amazonUrl);
+  }
+
   async function handleGenerate() {
-    if (!image) return;
+    if (inputMode === "upload" && !image) return;
+    if (inputMode === "url" && !scrapedProduct) return;
     abortRef.current = false;
     hasSavedRef.current = false;
     setError(null);
@@ -375,11 +440,26 @@ export default function GeneratePage() {
 
     try {
       setStatusMsg("Analyzing brand & writing prompts…");
-      const aRes = await fetch("/api/analyze", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ image: image.base64, mimeType: image.mimeType }),
-      });
+
+      let refImageUrl: string | undefined;
+      let aRes: Response;
+
+      if (inputMode === "url" && scrapedProduct) {
+        // Use Amazon image URL directly — no upload needed
+        refImageUrl = scrapedProduct.imageUrls[0];
+        aRes = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageUrl: refImageUrl }),
+        });
+      } else {
+        aRes = await fetch("/api/analyze", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: image!.base64, mimeType: image!.mimeType }),
+        });
+      }
+
       const aData = await aRes.json();
       if (!aRes.ok) throw new Error(aData.error ?? "Analysis failed");
 
@@ -397,20 +477,21 @@ export default function GeneratePage() {
         ? `${videoPrompt} The person says: "${adScript}"`
         : videoPrompt;
 
-      // Upload product image to get a public HTTPS URL for KIEAI reference (silent fail)
-      let refImageUrl: string | undefined;
-      try {
-        setStatusMsg("Uploading reference image…");
-        const uploadRes = await fetch("/api/upload-image", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ base64: image.base64, mimeType: image.mimeType }),
-        });
-        if (uploadRes.ok) {
-          const uploadData = await uploadRes.json() as { url?: string };
-          refImageUrl = uploadData.url;
-        }
-      } catch { /* proceed without reference image if upload fails */ }
+      // Upload product image to get a public HTTPS URL for KIEAI reference (upload mode only)
+      if (inputMode === "upload" && image && !refImageUrl) {
+        try {
+          setStatusMsg("Uploading reference image…");
+          const uploadRes = await fetch("/api/upload-image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ base64: image.base64, mimeType: image.mimeType }),
+          });
+          if (uploadRes.ok) {
+            const uploadData = await uploadRes.json() as { url?: string };
+            refImageUrl = uploadData.url;
+          }
+        } catch { /* proceed without reference image if upload fails */ }
+      }
 
       setPack({
         listing1: queuedAsset(listingPrompts[0]),
@@ -555,20 +636,129 @@ export default function GeneratePage() {
               </p>
             </div>
 
-            <UploadZone
-              onImageSelect={(base64, mimeType, preview) =>
-                setImage({ base64, mimeType, preview })
-              }
-              preview={image?.preview ?? null}
-              onClear={() => {
-                abortRef.current = true;
-                setImage(null);
-                setPack(null);
-                setStage("idle");
-                setError(null);
-                setStatusMsg("");
-              }}
-            />
+            {/* Tab switcher */}
+            <div className="flex rounded-lg border border-black/[0.08] p-0.5 gap-0.5">
+              <button
+                onClick={() => { setInputMode("upload"); setScrapedProduct(null); setAmazonUrl(""); setPack(null); setStage("idle"); setError(null); }}
+                className={cn(
+                  "flex-1 rounded-md py-1.5 text-xs font-medium transition-colors",
+                  inputMode === "upload" ? "bg-black text-white" : "text-zinc-500 hover:text-black"
+                )}
+              >
+                Upload Image
+              </button>
+              <button
+                onClick={() => { setInputMode("url"); setImage(null); setPack(null); setStage("idle"); setError(null); }}
+                className={cn(
+                  "flex-1 rounded-md py-1.5 text-xs font-medium transition-colors",
+                  inputMode === "url" ? "bg-black text-white" : "text-zinc-500 hover:text-black"
+                )}
+              >
+                Amazon URL
+              </button>
+            </div>
+
+            {inputMode === "upload" ? (
+              <UploadZone
+                onImageSelect={(base64, mimeType, preview) =>
+                  setImage({ base64, mimeType, preview })
+                }
+                preview={image?.preview ?? null}
+                onClear={() => {
+                  abortRef.current = true;
+                  setImage(null);
+                  setPack(null);
+                  setStage("idle");
+                  setError(null);
+                  setStatusMsg("");
+                }}
+              />
+            ) : (
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2">
+                  <input
+                    value={amazonUrl}
+                    onChange={e => setAmazonUrl(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && handleScrape()}
+                    placeholder="https://www.amazon.in/dp/…"
+                    className="flex-1 rounded-xl border border-black/[0.12] px-3 py-2.5 text-sm outline-none focus:border-black/30"
+                  />
+                  <button
+                    onClick={handleScrape}
+                    disabled={!amazonUrl || scraping}
+                    className="rounded-xl bg-black text-white px-4 py-2.5 text-sm font-medium disabled:opacity-40 hover:opacity-80 transition-opacity"
+                  >
+                    {scraping ? <Loader2 size={14} className="animate-spin" /> : "Fetch"}
+                  </button>
+                </div>
+
+                {/* Sample Amazon products — pre-fetched on tab open */}
+                {!scrapedProduct && (
+                  <div>
+                    <p className="text-[10px] font-medium tracking-widest uppercase mb-2" style={{ color: "#a1a1aa" }}>
+                      Or try a sample
+                    </p>
+                    <div className="grid grid-cols-4 gap-1.5">
+                      {SAMPLE_AMAZON_PRODUCTS.map((s, i) => {
+                        const prefetched = samplePrefetch[s.url];
+                        const isLoading = prefetched === "loading" || prefetched === undefined;
+                        const thumbUrl = typeof prefetched === "object" ? prefetched?.imageUrls[0] : undefined;
+                        return (
+                          <button
+                            key={`${s.url}-${i}`}
+                            disabled={scraping || isLoading}
+                            onClick={() => {
+                              if (typeof prefetched !== "object" || !prefetched) return;
+                              setAmazonUrl(s.url);
+                              setScrapedProduct(prefetched);
+                            }}
+                            className="relative rounded-lg overflow-hidden border border-black/[0.08] aspect-square bg-zinc-50 hover:border-black/30 hover:bg-zinc-100 transition-all disabled:opacity-50 flex flex-col items-center justify-center gap-1 p-1"
+                            title={s.label}
+                          >
+                            {isLoading ? (
+                              <div className="w-3 h-3 border border-black/30 border-t-black rounded-full animate-spin" />
+                            ) : thumbUrl ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={thumbUrl} alt={s.label} className="w-full h-full object-contain" />
+                            ) : (
+                              <span className="text-[9px] text-center leading-tight px-1" style={{ color: "#6F6F6F" }}>{s.label}</span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {scrapedProduct && (
+                  <div className="rounded-xl border border-black/[0.08] p-3 flex gap-3 items-start">
+                    {scrapedProduct.imageUrls[0] && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={scrapedProduct.imageUrls[0]}
+                        alt=""
+                        className="w-16 h-16 object-contain rounded-lg border border-black/[0.06] bg-zinc-50 flex-shrink-0"
+                      />
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-medium line-clamp-2" style={{ color: "#000" }}>{scrapedProduct.title}</p>
+                      {scrapedProduct.brand && (
+                        <p className="text-[11px] mt-0.5" style={{ color: "#6F6F6F" }}>{scrapedProduct.brand}</p>
+                      )}
+                      <p className="text-[11px] mt-1" style={{ color: "#a1a1aa" }}>
+                        {scrapedProduct.bullets.length} features · {scrapedProduct.imageUrls.length} image{scrapedProduct.imageUrls.length !== 1 ? "s" : ""} detected
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => { setScrapedProduct(null); setAmazonUrl(""); }}
+                      className="text-zinc-300 hover:text-zinc-500 flex-shrink-0"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             {(isGenerating || stage === "done") && (
               <div
@@ -591,7 +781,7 @@ export default function GeneratePage() {
 
             <button
               onClick={handleGenerate}
-              disabled={!image || isGenerating}
+              disabled={(!image && !scrapedProduct) || isGenerating}
               className="flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-medium text-white transition-all hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
               style={{ background: "#000", fontFamily: "var(--font-inter)" }}
             >

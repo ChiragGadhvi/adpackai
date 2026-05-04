@@ -21,9 +21,13 @@ async function callGemini(messages: { role: string; content: unknown }[]) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { image, mimeType } = await req.json() as { image: string; mimeType: string };
-    if (!image || !mimeType) {
-      return NextResponse.json({ error: "Missing image or mimeType" }, { status: 400 });
+    const { image, mimeType, imageUrl } = await req.json() as {
+      image?: string;
+      mimeType?: string;
+      imageUrl?: string;
+    };
+    if (!imageUrl && (!image || !mimeType)) {
+      return NextResponse.json({ error: "Missing image/mimeType or imageUrl" }, { status: 400 });
     }
 
     const raw = await callGemini([
@@ -80,7 +84,7 @@ JSON format:
         content: [
           {
             type: "image_url",
-            image_url: { url: `data:${mimeType};base64,${image}` },
+            image_url: { url: imageUrl ?? `data:${mimeType};base64,${image}` },
           },
           {
             type: "text",
