@@ -331,7 +331,7 @@ export default function GeneratePage() {
     throw new Error("Task timed out after 10 minutes");
   }
 
-  async function runTask(assetKey: keyof AdPack, body: TaskBody, isFallback = false): Promise<string> {
+  async function runTask(assetKey: keyof AdPack, body: TaskBody, attempt = 0): Promise<string> {
     updateAsset(assetKey, { status: "generating" });
     const res = await fetch("/api/create-task", {
       method: "POST",
@@ -340,8 +340,11 @@ export default function GeneratePage() {
     });
     const data = await res.json();
     if (!res.ok) {
-      if (!isFallback && body.type === "image") {
-        return runTask(assetKey, { ...body, model: "nano-banana-2" }, true);
+      if (attempt === 0 && body.type === "image") {
+        return runTask(assetKey, { ...body, model: "gpt-image-2-text-to-image", referenceImageUrl: undefined }, 1);
+      }
+      if (attempt === 1 && body.type === "image") {
+        return runTask(assetKey, { ...body, model: "nano-banana-2", referenceImageUrl: undefined }, 2);
       }
       throw new Error(data.error ?? "Task creation failed");
     }
@@ -350,8 +353,11 @@ export default function GeneratePage() {
       updateAsset(assetKey, { status: "done", url, taskId: data.taskId });
       return url;
     } catch (err) {
-      if (!isFallback && body.type === "image") {
-        return runTask(assetKey, { ...body, model: "nano-banana-2" }, true);
+      if (attempt === 0 && body.type === "image") {
+        return runTask(assetKey, { ...body, model: "gpt-image-2-text-to-image", referenceImageUrl: undefined }, 1);
+      }
+      if (attempt === 1 && body.type === "image") {
+        return runTask(assetKey, { ...body, model: "nano-banana-2", referenceImageUrl: undefined }, 2);
       }
       updateAsset(assetKey, { status: "failed" });
       throw err;
@@ -660,7 +666,7 @@ export default function GeneratePage() {
               )}
             </div>
           ) : recentSaved ? (
-            <div className="flex flex-col gap-3">
+            <div className="hidden lg:flex flex-col gap-3">
               <p className="text-[11px]" style={{ color: "#a1a1aa", fontFamily: "var(--font-inter)" }}>
                 Last generated · {recentSaved.productName ?? "Ad Pack"}
               </p>

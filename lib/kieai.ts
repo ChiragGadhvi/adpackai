@@ -14,8 +14,8 @@ export async function createImageTask(
   model?: string,
   referenceImageUrl?: string
 ): Promise<string> {
-  // Auto-select model: image-to-image when ref URL present, text-to-image otherwise
-  const selectedModel = model ?? (referenceImageUrl ? "gpt-image-2-image-to-image" : "gpt-image-2-text-to-image");
+  // nano-banana-2 is the reliable i2i model; gpt-image-2-image-to-image is unstable
+  const selectedModel = model ?? (referenceImageUrl ? "nano-banana-2" : "gpt-image-2-text-to-image");
 
   const input: Record<string, unknown> = { prompt, aspect_ratio: aspectRatio, resolution };
 

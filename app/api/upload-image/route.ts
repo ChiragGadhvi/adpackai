@@ -1,29 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 
-// Uploads a base64 image to tmpfiles.org and returns a public HTTPS URL.
-// The URL is valid for 60 min — long enough for KIEAI task creation.
+// Primary: Vercel Blob (requires BLOB_READ_WRITE_TOKEN env var)
+// Fallback: litterbox.catbox.moe (no key needed, 1h TTL)
 export async function POST(req: NextRequest) {
   try {
     const { base64, mimeType } = await req.json() as { base64: string; mimeType: string };
 
+    const ext = mimeType.split("/")[1]?.replace("jpeg", "jpg") ?? "jpg";
     const buffer = Buffer.from(base64, "base64");
+    const filename = `product-${Date.now()}.${ext}`;
+
+    // Try Vercel Blob first if token is configured
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const { url } = await put(filename, buffer, {
+        access: "public",
+        contentType: mimeType,
+      });
+      return NextResponse.json({ url });
+    }
+
+    // Fallback: litterbox.catbox.moe
     const blob = new Blob([buffer], { type: mimeType });
-
     const form = new FormData();
-    form.append("file", blob, "product.jpg");
+    form.append("reqtype", "fileupload");
+    form.append("time", "1h");
+    form.append("fileToUpload", blob, filename);
 
-    const res = await fetch("https://tmpfiles.org/api/v1/upload", {
+    const res = await fetch("https://litterbox.catbox.moe/resources/internals/api.php", {
       method: "POST",
       body: form,
     });
-
-    if (!res.ok) throw new Error(`tmpfiles upload failed: ${res.status}`);
-    const data = await res.json() as { status: string; data: { url: string } };
-    if (data.status !== "success") throw new Error("Upload failed");
-
-    // tmpfiles returns https://tmpfiles.org/XXXXX/file
-    // Direct-download URL is https://tmpfiles.org/dl/XXXXX/file
-    const url = data.data.url.replace("tmpfiles.org/", "tmpfiles.org/dl/");
+    if (!res.ok) throw new Error(`catbox upload failed: ${res.status}`);
+    const url = (await res.text()).trim();
+    if (!url.startsWith("https://")) throw new Error("Catbox upload failed: " + url);
 
     return NextResponse.json({ url });
   } catch (err) {
