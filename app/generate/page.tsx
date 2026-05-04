@@ -315,7 +315,6 @@ export default function GeneratePage() {
     aspectRatio?: "1:1" | "9:16" | "16:9";
     imageUrl?: string;
     model?: string;
-    referenceImageUrl?: string;
   };
 
   async function waitForTask(taskId: string, assetKey: keyof AdPack): Promise<string> {
@@ -391,8 +390,6 @@ export default function GeneratePage() {
         ? `${videoPrompt} The person says: "${adScript}"`
         : videoPrompt;
 
-      const refImageUrl = `data:${image.mimeType};base64,${image.base64}`;
-
       setPack({
         listing1: queuedAsset(listingPrompts[0]),
         listing2: queuedAsset(listingPrompts[1]),
@@ -404,12 +401,14 @@ export default function GeneratePage() {
       setStage("generating");
       setStatusMsg("All engines running — assets will appear as they complete…");
 
-      // Run all 4 image tasks in parallel
+      const stagger = (ms: number) => new Promise<void>(r => setTimeout(r, ms));
+
+      // Stagger task creation by 3s each to avoid KIEAI rate limits; polling still runs in parallel
       const [, , , ugcUrl] = await Promise.all([
-        runTask("listing1", { type: "image", prompt: listingPrompts[0], aspectRatio: "1:1",  referenceImageUrl: refImageUrl }),
-        runTask("listing2", { type: "image", prompt: listingPrompts[1], aspectRatio: "1:1",  referenceImageUrl: refImageUrl }),
-        runTask("listing3", { type: "image", prompt: listingPrompts[2], aspectRatio: "1:1",  referenceImageUrl: refImageUrl }),
-        runTask("ugc",      { type: "image", prompt: ugcPrompt,          aspectRatio: "9:16", referenceImageUrl: refImageUrl }),
+        runTask("listing1", { type: "image", prompt: listingPrompts[0], aspectRatio: "1:1" }),
+        stagger(3000).then(() => runTask("listing2", { type: "image", prompt: listingPrompts[1], aspectRatio: "1:1" })),
+        stagger(6000).then(() => runTask("listing3", { type: "image", prompt: listingPrompts[2], aspectRatio: "1:1" })),
+        stagger(9000).then(() => runTask("ugc",      { type: "image", prompt: ugcPrompt,          aspectRatio: "9:16" })),
       ]);
 
       if (abortRef.current) return;

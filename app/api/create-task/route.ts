@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
       aspectRatio?: "1:1" | "9:16" | "16:9";
       imageUrl?: string;
       model?: string;
-      referenceImageUrl?: string;
     };
 
     let taskId: string;
@@ -20,7 +19,7 @@ export async function POST(req: NextRequest) {
       }
       taskId = await createVideoTask(body.prompt, body.imageUrl);
     } else {
-      taskId = await createImageTask(body.prompt, body.aspectRatio ?? "1:1", "2K", body.model, body.referenceImageUrl);
+      taskId = await createImageTask(body.prompt, body.aspectRatio ?? "1:1", "2K", body.model);
     }
 
     return NextResponse.json({ taskId });

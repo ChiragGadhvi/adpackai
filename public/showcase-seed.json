@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777882927151",
+    "createdAt": 1777882927151,
+    "productName": "NIVEA Nourishing Lotion Body Milk",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/1f9a175f2a1577d2ab9d39795db40858_1777882659.jpeg",
+        "prompt": "Product photography of NIVEA Nourishing Lotion Body Milk on a clean white background. The bottle is centered and sharp. Scattered around it: almond nuts, a drop of water, a subtle cream swirl. At the top-left, bold serif headline reads '48H INTENSIVE MOISTURE'. Bottom strip shows 'FOR VERY DRY SKIN'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f5306f40227370f2b7b9977fa42cb861_1777882656.jpeg",
+        "prompt": "Amazon listing infographic for NIVEA Nourishing Lotion Body Milk. Blue, white, and silver color scheme matching brand. Left side: product photo with floating almond nuts and water droplets. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: '48H Hydration Power', 'Deep Moisture Serum Formula', 'Enriched with 2x Almond Oil', 'Nourishes Very Dry Skin', 'Intensively Cares for Skin'. Top headline: 'ULTIMATE HYDRATION FOR VERY DRY SKIN'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/437b5748c6afb7e74370a2f55812592b_1777882758986.jpeg",
+        "prompt": "Amazon listing lifestyle photo for NIVEA Nourishing Lotion Body Milk. A cozy bathroom with soft, warm lighting. A woman in her 30s is shown gently applying lotion to her arm, with a relaxed and content expression. The product is visible in the foreground on a marble countertop next to a soft towel. Headline overlay: 'REPLENISH YOUR SKIN'. Subtext: 'Experience lasting comfort and softness'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/cc30fef1b1c6f85fb88674c111c4c935_1777882744684.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding NIVEA Nourishing Lotion Body Milk up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/46c9fe47d6b883c7215de5dcff1e2a80_1777882897_kkb3zaeg.mp4",
+        "prompt": "9:16 vertical UGC video. Woman in her 30s sitting in parked car, NIVEA Nourishing Lotion Body Milk resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"OMG, my skin is SO dry. *picks up NIVEA Body Milk* This NIVEA Body Milk with Deep Moisture Serum gives 48-hour hydration. My skin feels incredibly soft, like, instantly. It's truly amazing!\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "OMG, my skin is SO dry. *picks up NIVEA Body Milk* This NIVEA Body Milk with Deep Moisture Serum gives 48-hour hydration. My skin feels incredibly soft, like, instantly. It's truly amazing!"
+  },
+  {
     "id": "1777873546194",
     "createdAt": 1777873546194,
     "productName": "Amul KOOL Café Classic Latte",

@@ -11,11 +11,9 @@ export async function createImageTask(
   prompt: string,
   aspectRatio: "1:1" | "9:16" | "16:9" = "1:1",
   resolution: "1K" | "2K" = "2K",
-  model = "gpt-image-2-text-to-image",
-  referenceImageUrl?: string
+  model = "gpt-image-2-text-to-image"
 ): Promise<string> {
   const input: Record<string, unknown> = { prompt, aspect_ratio: aspectRatio, resolution };
-  if (referenceImageUrl) input.image_url = referenceImageUrl;
 
   const res = await fetch(`${KIEAI_BASE}/api/v1/jobs/createTask`, {
     method: "POST",
