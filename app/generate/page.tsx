@@ -611,19 +611,19 @@ export default function GeneratePage() {
                 </div>
               </div>
 
-              {/* UGC photo + video — each in its own row, 4:5 ratio */}
-              <div className="flex flex-col gap-4">
-                <div>
+              {/* UGC photo + video — fixed-width 9:16 cards */}
+              <div className="flex gap-6">
+                <div style={{ width: 195, flexShrink: 0 }}>
                   <p className="text-[10px] font-medium tracking-widest uppercase mb-2" style={{ color: "#a1a1aa" }}>
                     UGC Photo
                   </p>
-                  <AssetCard label="UGC Photo" type="image" aspectRatio="4/5" status={pack.ugc.status} url={pack.ugc.url} prompt={pack.ugc.prompt} onView={() => setCarouselIdx(3)} />
+                  <AssetCard label="UGC Photo" type="image" aspectRatio="9/16" status={pack.ugc.status} url={pack.ugc.url} prompt={pack.ugc.prompt} onView={() => setCarouselIdx(3)} />
                 </div>
-                <div>
+                <div style={{ width: 195, flexShrink: 0 }}>
                   <p className="text-[10px] font-medium tracking-widest uppercase mb-2" style={{ color: "#a1a1aa" }}>
                     UGC Video
                   </p>
-                  <AssetCard label="Video" type="video" aspectRatio="4/5" status={pack.video.status} url={pack.video.url} prompt={pack.video.prompt} onView={() => setCarouselIdx(4)} />
+                  <AssetCard label="Video" type="video" aspectRatio="9/16" status={pack.video.status} url={pack.video.url} prompt={pack.video.prompt} onView={() => setCarouselIdx(4)} />
                 </div>
               </div>
 
