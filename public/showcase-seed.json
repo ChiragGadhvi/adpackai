@@ -1,0 +1,83 @@
+[
+  {
+    "id": "1777873546194",
+    "createdAt": 1777873546194,
+    "productName": "Amul KOOL Café Classic Latte",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/b5db64021e052e39177ab88c42d1cbc5_1777873376.jpeg",
+        "prompt": "Product photography of Amul KOOL Café Classic Latte on a clean light beige background. The can is centered and sharp. Scattered around it: coffee beans, a small milk frother. At the top-left, bold serif headline reads 'Your Instant Coffee Fix'. Bottom strip shows 'Perfectly Blended Milk & Coffee'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f6f6786adf42523b4c9fd0d1864de4df_1777873366.jpeg",
+        "prompt": "Amazon listing infographic for Amul KOOL Café Classic Latte. Dark brown and creamy beige color scheme matching brand. Left side: product photo with floating coffee beans and milk splashes. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'Rich Latte Flavor', 'Ready to Drink', 'Convenient 200ml Can', 'Dairy & Coffee Blend', 'Energizing Refreshment'. Top headline: 'Experience the Classic Latte'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/bee65687ec3dc0a6c9a290528bc272ab_1777873361004.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Amul KOOL Café Classic Latte. A bustling coffee shop with soft ambient lighting. A man in his late 20s, dressed in casual smart attire, is typing on a laptop with the product visible on the table next to him. Headline overlay: 'Your Everyday Boost'. Subtext: 'Enjoy Rich Coffee, Anytime, Anywhere'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/7953c572ae45ccdb44e9402c0c5d1f82_1777873370.jpeg",
+        "prompt": "9:16 vertical portrait. A young woman in her early 20s casually using Amul KOOL Café Classic Latte in a park on a sunny day. Natural window light or soft outdoor light. Candid, slightly imperfect framing. Authentic Instagram/TikTok UGC style, not staged, not an ad. Product clearly visible. ISO 800 film grain. Photorealistic.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/0e56e3bf5279008190cc337384b7d68c_1777873518_xrl7qlax.mp4",
+        "prompt": "9:16 vertical UGC video scene. A person on a road trip using Amul KOOL Café Classic Latte in a car. Handheld camera movement, natural light, authentic moment. Close-up of product interaction. UGC TikTok style. Photorealistic. The person says: \"Wait, is this real coffee in a can?! This Amul KOOL Café Classic Latte is perfectly blended and so refreshing. Seriously, it's my new go-to!\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wait, is this real coffee in a can?! This Amul KOOL Café Classic Latte is perfectly blended and so refreshing. Seriously, it's my new go-to!"
+  },
+  {
+    "id": "1777872075668",
+    "createdAt": 1777872075668,
+    "productName": "BEARDO Whisky Smoke Eau De Parfum",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/c5377f73a01aaf5c39cbabef7659d688_1777871195.jpeg",
+        "prompt": "Product photography of BEARDO Whisky Smoke Eau De Parfum on a clean charcoal grey background. The bottle is centered and sharp. Scattered around it: a small oak barrel shard, a wisp of smoke, a single whiskey glass. At the top-left, bold serif headline reads 'CONFIDENT & CAPTIVATING AROMA'. Bottom strip shows 'LONG-LASTING | 50 ML'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo."
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/e19a3df1641ace4e731fedf453822b89_1777871260.jpeg",
+        "prompt": "Amazon listing infographic for BEARDO Whisky Smoke Eau De Parfum. Warm amber and dark grey color scheme matching brand. Left side: product photo with floating smoke tendrils and subtle whiskey glass outlines. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'DISTINCTIVE WOODY & SMOKY SCENT', 'ALL-DAY LONG LASTING FRAGRANCE', 'BOOSTS CONFIDENCE & APPEAL', 'PREMIUM & SOPHISTICATED AROMA', 'IDEAL FOR MODERN GENTLEMEN'. Top headline: 'MASTER THE ART OF SEDUCTION'. Clean modern layout, ecommerce infographic style, high resolution."
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/images/chatgpt/e419be38055e7bad436951a252a79809_88b3cdd467604b1f8c28e911b3500f2d.png",
+        "prompt": "Amazon listing lifestyle photo for BEARDO Whisky Smoke Eau De Parfum. A sophisticated, dimly lit lounge or bar setting. A well-groomed man in his 30s-40s, dressed in smart casual attire, is shown subtly applying the perfume to his wrist, with a confident, slight smirk. The product is visible in the foreground. Headline overlay: 'LEAVE A LASTING IMPRESSION'. Subtext: 'Command attention with every spray.'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution."
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/na2/2693798623091096165457c608976bca1937319.jpeg",
+        "prompt": "9:16 vertical portrait. A stylish man in his late 20s casually using BEARDO Whisky Smoke Eau De Parfum in his modern bathroom. Natural window light. Candid, slightly imperfect framing. Authentic Instagram/TikTok UGC style, not staged, not an ad. Product clearly visible. ISO 800 film grain. Photorealistic."
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/77d90ddec4f954358f7e3c33ce25b960_1777872047_xhpsjc70.mp4",
+        "prompt": "9:16 vertical UGC video scene. A man in his early 30s applying BEARDO Whisky Smoke Eau De Parfum before heading out for an evening. Handheld camera movement, natural light, authentic moment. Close-up of product interaction, showing him spraying the perfume on his neck. UGC TikTok style. Photorealistic."
+      }
+    ],
+    "adScript": "Whoa, what's that amazing scent? This BEARDO Whisky Smoke Eau De Parfum literally turns heads every time I wear it. It's my secret weapon for confidence!"
+  }
+]

@@ -139,7 +139,7 @@ function loadSavedPacks(): SavedPack[] {
 
 // ── Showcase card ──────────────────────────────────────────────────────────────
 
-function ShowcaseCard({ saved, onDelete }: { saved: SavedPack; onDelete: () => void }) {
+function ShowcaseCard({ saved, onDelete, readOnly = false }: { saved: SavedPack; onDelete: () => void; readOnly?: boolean }) {
   const [zipping, setZipping] = useState(false);
   const [carouselIdx, setCarouselIdx] = useState<number | null>(null);
 
@@ -199,13 +199,15 @@ function ShowcaseCard({ saved, onDelete }: { saved: SavedPack; onDelete: () => v
             {zipping ? <Loader2 size={11} className="animate-spin" /> : <Archive size={11} />}
             {zipping ? "Zipping…" : "Download ZIP"}
           </button>
-          <button
-            onClick={onDelete}
-            className="text-[11px] transition-opacity hover:opacity-50"
-            style={{ color: "#a1a1aa" }}
-          >
-            Remove
-          </button>
+          {!readOnly && (
+            <button
+              onClick={onDelete}
+              className="text-[11px] transition-opacity hover:opacity-50"
+              style={{ color: "#a1a1aa" }}
+            >
+              Remove
+            </button>
+          )}
         </div>
       </div>
 
@@ -280,6 +282,7 @@ export default function GeneratePage() {
   const [pack, setPack] = useState<AdPack | null>(null);
   const [zipping, setZipping] = useState(false);
   const [savedPacks, setSavedPacks] = useState<SavedPack[]>([]);
+  const [seedPacks, setSeedPacks] = useState<SavedPack[]>([]);
   const [analysisData, setAnalysisData] = useState<{ productName?: string } | null>(null);
   const [carouselIdx, setCarouselIdx] = useState<number | null>(null);
   const abortRef = useRef<boolean>(false);
@@ -287,6 +290,16 @@ export default function GeneratePage() {
 
   useEffect(() => {
     setSavedPacks(loadSavedPacks());
+    // Load seed packs committed to the repo (visible in production)
+    fetch("/showcase-seed.json")
+      .then(r => r.json())
+      .then((data: SavedPack[]) => {
+        const local = loadSavedPacks();
+        const localIds = new Set(local.map(p => p.id));
+        // Only show seed packs that aren't already in localStorage
+        setSeedPacks(data.filter(p => !localIds.has(p.id)));
+      })
+      .catch(() => { /* no seed file — fine */ });
     return () => { abortRef.current = true; };
   }, []);
 
@@ -441,9 +454,30 @@ export default function GeneratePage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch { /* */ }
   }
 
+  const [exporting, setExporting] = useState(false);
+  const [exportDone, setExportDone] = useState(false);
+
+  async function exportSeedFile() {
+    if (savedPacks.length === 0) return;
+    setExporting(true);
+    setExportDone(false);
+    try {
+      const res = await fetch("/api/dev/export-seed", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(savedPacks),
+      });
+      if (res.ok) {
+        setExportDone(true);
+        setTimeout(() => setExportDone(false), 3000);
+      }
+    } catch { /* ignore */ }
+    setExporting(false);
+  }
+
   const isGenerating = stage === "analyzing" || stage === "generating";
 
-  const recentSaved = savedPacks[0] ?? null;
+  const recentSaved = savedPacks[0] ?? seedPacks[0] ?? null;
 
   const doneCount = pack
     ? (["listing1", "listing2", "listing3", "ugc", "video"] as (keyof AdPack)[])
@@ -636,7 +670,7 @@ export default function GeneratePage() {
         </div>
 
         {/* ── Showcase gallery ── */}
-        {savedPacks.length > 0 && (
+        {(savedPacks.length > 0 || seedPacks.length > 0) && (
           <div className="mt-24">
             <div className="mb-6 flex items-center justify-between">
               <div>
@@ -655,16 +689,31 @@ export default function GeneratePage() {
                   Previously generated — download or copy prompts without regenerating.
                 </p>
               </div>
-              <button
-                onClick={() => {
-                  setSavedPacks([]);
-                  try { localStorage.removeItem(STORAGE_KEY); } catch { /* */ }
-                }}
-                className="text-xs transition-opacity hover:opacity-50"
-                style={{ color: "#a1a1aa", fontFamily: "var(--font-inter)" }}
-              >
-                Clear all
-              </button>
+              <div className="flex items-center gap-3">
+                {savedPacks.length > 0 && process.env.NODE_ENV === "development" && (
+                  <button
+                    onClick={exportSeedFile}
+                    disabled={exporting}
+                    className="text-xs transition-opacity hover:opacity-70 disabled:opacity-40"
+                    style={{ color: exportDone ? "#22c55e" : "#6F6F6F", fontFamily: "var(--font-inter)" }}
+                    title="Saves to public/showcase-seed.json — commit & push to show in production"
+                  >
+                    {exporting ? "Saving…" : exportDone ? "Saved — commit & push ✓" : "Save for production"}
+                  </button>
+                )}
+                {savedPacks.length > 0 && (
+                  <button
+                    onClick={() => {
+                      setSavedPacks([]);
+                      try { localStorage.removeItem(STORAGE_KEY); } catch { /* */ }
+                    }}
+                    className="text-xs transition-opacity hover:opacity-50"
+                    style={{ color: "#a1a1aa", fontFamily: "var(--font-inter)" }}
+                  >
+                    Clear all
+                  </button>
+                )}
+              </div>
             </div>
             <div className="flex flex-col gap-6">
               {savedPacks.map((saved) => (
@@ -672,6 +721,14 @@ export default function GeneratePage() {
                   key={saved.id}
                   saved={saved}
                   onDelete={() => deleteShowcase(saved.id)}
+                />
+              ))}
+              {seedPacks.map((saved) => (
+                <ShowcaseCard
+                  key={saved.id}
+                  saved={saved}
+                  onDelete={() => {}}
+                  readOnly
                 />
               ))}
             </div>
