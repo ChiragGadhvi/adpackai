@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
+    const zipBuffer = await zip.generateAsync({ type: "uint8array" });
 
     return new NextResponse(zipBuffer, {
       status: 200,
