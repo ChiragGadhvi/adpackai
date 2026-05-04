@@ -72,7 +72,7 @@ JSON format:
     "ugc": "[filled Template D — no brackets remaining]",
     "video": "[filled Template E — no brackets remaining]"
   },
-  "adScript": "Hook sentence (surprised tone). Proof sentence (specific product action). Punchline reaction. Total under 45 words. Casual spoken English."
+  "adScript": "ONE sentence only. Max 10 words. Genuine surprised reaction to the product. Casual spoken English. No exclamations chained together. No rap. Example: 'Wait, this actually smells incredible.'"
 }`,
       },
       {

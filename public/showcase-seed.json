@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777883945391",
+    "createdAt": 1777883945391,
+    "productName": "Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f6cbcf761d02919cc72919844998f02a_1777883414.jpeg",
+        "prompt": "Product photography of Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg on a clean light gray background. The bag is centered and sharp. Scattered around it: fresh chicken pieces, a bowl of kibble, and a glass of milk. At the top-left, bold serif headline reads 'Complete Nutrition for Growing Puppies'. Bottom strip shows 'Supports 5 Signs of Good Health'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/51f191db37798235ef8a4adf222c04d2_1777883420.jpeg",
+        "prompt": "Amazon listing infographic for Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg. Yellow and pink color scheme matching brand. Left side: product photo with floating chicken pieces and milk droplets. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'Stronger Immunity', 'Healthy Growth', 'Good Digestion', 'Healthy Skin & Coat', 'Strong Bones & Teeth'. Top headline: 'Nourish Your Puppy's Potential'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/3fb066613d1e88b894b2cf349b3b7b74_1777883771726.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg. A bright modern kitchen. A woman in her 30s is pouring kibble into a bowl while a cute golden retriever puppy looks up expectantly. The product is visible on the countertop in the foreground. Headline overlay: 'Happy Puppy, Healthy Life'. Subtext: 'Fueling their playful days'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/images/chatgpt/53ce3374dbc7495a01e595d322de3568_a4ace0a1648a4d67bdde90c44d0126b3.png",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/k/e30025f0d45ff4002e0a6e559253a542_1_1777883917_5218.mp4",
+        "prompt": "9:16 vertical UGC video. Young man sitting in parked car, Pedigree Puppy Complete & Balanced Dog Food Chicken & Milk 3kg resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Oh my gosh, this is perfect for my new puppy!\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Oh my gosh, this is perfect for my new puppy!"
+  },
+  {
     "id": "1777882927151",
     "createdAt": 1777882927151,
     "productName": "NIVEA Nourishing Lotion Body Milk",

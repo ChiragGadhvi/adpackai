@@ -11,14 +11,26 @@ export async function createImageTask(
   prompt: string,
   aspectRatio: "1:1" | "9:16" | "16:9" = "1:1",
   resolution: "1K" | "2K" = "2K",
-  model = "gpt-image-2-text-to-image"
+  model?: string,
+  referenceImageUrl?: string
 ): Promise<string> {
+  // Auto-select model: image-to-image when ref URL present, text-to-image otherwise
+  const selectedModel = model ?? (referenceImageUrl ? "gpt-image-2-image-to-image" : "gpt-image-2-text-to-image");
+
   const input: Record<string, unknown> = { prompt, aspect_ratio: aspectRatio, resolution };
+
+  if (referenceImageUrl) {
+    if (selectedModel === "nano-banana-2") {
+      input.image_input = [referenceImageUrl];   // nano-banana-2 field name
+    } else {
+      input.input_urls = [referenceImageUrl];    // gpt-image-2-image-to-image field name
+    }
+  }
 
   const res = await fetch(`${KIEAI_BASE}/api/v1/jobs/createTask`, {
     method: "POST",
     headers: headers(),
-    body: JSON.stringify({ model, input }),
+    body: JSON.stringify({ model: selectedModel, input }),
   });
   const data = await res.json();
   if (!res.ok || data.code !== 200) {

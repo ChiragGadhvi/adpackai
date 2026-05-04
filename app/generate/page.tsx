@@ -315,6 +315,7 @@ export default function GeneratePage() {
     aspectRatio?: "1:1" | "9:16" | "16:9";
     imageUrl?: string;
     model?: string;
+    referenceImageUrl?: string;
   };
 
   async function waitForTask(taskId: string, assetKey: keyof AdPack): Promise<string> {
@@ -390,6 +391,21 @@ export default function GeneratePage() {
         ? `${videoPrompt} The person says: "${adScript}"`
         : videoPrompt;
 
+      // Upload product image to get a public HTTPS URL for KIEAI reference (silent fail)
+      let refImageUrl: string | undefined;
+      try {
+        setStatusMsg("Uploading reference image…");
+        const uploadRes = await fetch("/api/upload-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ base64: image.base64, mimeType: image.mimeType }),
+        });
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json() as { url?: string };
+          refImageUrl = uploadData.url;
+        }
+      } catch { /* proceed without reference image if upload fails */ }
+
       setPack({
         listing1: queuedAsset(listingPrompts[0]),
         listing2: queuedAsset(listingPrompts[1]),
@@ -405,10 +421,10 @@ export default function GeneratePage() {
 
       // Stagger task creation by 3s each to avoid KIEAI rate limits; polling still runs in parallel
       const [, , , ugcUrl] = await Promise.all([
-        runTask("listing1", { type: "image", prompt: listingPrompts[0], aspectRatio: "1:1" }),
-        stagger(3000).then(() => runTask("listing2", { type: "image", prompt: listingPrompts[1], aspectRatio: "1:1" })),
-        stagger(6000).then(() => runTask("listing3", { type: "image", prompt: listingPrompts[2], aspectRatio: "1:1" })),
-        stagger(9000).then(() => runTask("ugc",      { type: "image", prompt: ugcPrompt,          aspectRatio: "9:16" })),
+        runTask("listing1", { type: "image", prompt: listingPrompts[0], aspectRatio: "1:1",  referenceImageUrl: refImageUrl }),
+        stagger(3000).then(() => runTask("listing2", { type: "image", prompt: listingPrompts[1], aspectRatio: "1:1",  referenceImageUrl: refImageUrl })),
+        stagger(6000).then(() => runTask("listing3", { type: "image", prompt: listingPrompts[2], aspectRatio: "1:1",  referenceImageUrl: refImageUrl })),
+        stagger(9000).then(() => runTask("ugc",      { type: "image", prompt: ugcPrompt,          aspectRatio: "9:16", referenceImageUrl: refImageUrl })),
       ]);
 
       if (abortRef.current) return;
