@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777923902000",
+    "createdAt": 1777923902000,
+    "productName": "NESCAFÉ Classic Soluble Coffee Powder",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/07bc868803559426e8f8736d0311f783_1777923701.jpeg",
+        "prompt": "Product photography of NESCAFÉ Classic Soluble Coffee Powder on a clean white background. The jar is centered and sharp. Scattered around it: roasted coffee beans, a small red coffee cup filled with black coffee, and a coffee leaf. At the top-left, bold serif headline reads 'RICH AROMA & IMPROVED TASTE'. Bottom strip shows '100% PURE COFFEE'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f31dc424ce75f68b6a418525af4f616b_1777923656.jpeg",
+        "prompt": "Amazon listing infographic for NESCAFÉ Classic Soluble Coffee Powder. Red and white color scheme matching brand. Left side: product photo with floating roasted coffee beans and steam from a coffee cup. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'RICH AROMA', 'IMPROVED TASTE', '100% PURE COFFEE', 'SOLUBLE POWDER', 'CLASSIC COFFEE EXPERIENCE'. Top headline: 'YOUR DAILY DOSE OF CLASSIC COFFEE'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/na2/3ea2c13895728cc7dde1ca33fa3220f51887803.jpeg",
+        "prompt": "Amazon listing lifestyle photo for NESCAFÉ Classic Soluble Coffee Powder. Bright modern kitchen. A woman in her 30s is shown smiling and holding a mug of coffee while looking out a window. The product is visible on the countertop next to a coffee maker. Headline overlay: 'START YOUR DAY THE CLASSIC WAY'. Subtext: 'Embrace the rich aroma and taste of NESCAFÉ'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/df0ce08fb35522019a7094578df1f006_1777923656.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding NESCAFÉ Classic Soluble Coffee Powder up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/24b98be5659ba9209a77253418336030_1777923849_2okslx1o.mp4",
+        "prompt": "9:16 vertical UGC video. Professional man in his 40s sitting in parked car, NESCAFÉ Classic Soluble Coffee Powder resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Wait, this actually makes amazing coffee.\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wait, this actually makes amazing coffee."
+  },
+  {
     "id": "1777891258185",
     "createdAt": 1777891258185,
     "productName": "Garnier Bright Complete Vitamin C Serum Cleanser XL Pack",
