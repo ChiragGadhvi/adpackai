@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777963900000",
+    "createdAt": 1777963900000,
+    "productName": "Amul Kool Cafe Classic Latte",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/6c3c26bcbac6c0af1ad391cb3bfb3dbc_1777963527.jpeg",
+        "prompt": "Product photography of Amul Kool Cafe Classic Latte on a clean light beige background. The can is centered and sharp. Scattered around it: roasted coffee beans, a whole coffee bean, a small milk splash. At the top-left, bold serif headline reads 'Your Instant Coffee Fix'. Bottom strip shows 'Rich, Creamy, Ready-to-Drink'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/1c4579287f6639cf5b8a5357ac3d4b54_1777963543.jpeg",
+        "prompt": "Amazon listing infographic for Amul Kool Cafe Classic Latte. Brown and creamy beige color scheme matching brand. Left side: product photo with floating roasted coffee beans and frothy milk swirls. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'Rich Coffee Flavor', 'Creamy Milk Blend', 'Instant Refreshment', 'Perfectly Portioned', 'Enjoy Anywhere, Anytime'. Top headline: 'Experience the Perfect Latte — Anytime!'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/591bcecfe08f940547c2fa0214cfb6e6_1777963504.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Amul Kool Cafe Classic Latte. A bustling modern office setting, bright and well-lit. A young professional woman in her late 20s or early 30s is shown taking a refreshing sip of the latte during a break, smiling softly. The can is visible in the foreground resting on her desk next to a laptop. Headline overlay: 'Your Daily Dose of Delicious'. Subtext: 'Fuel Your Day with Classic Latte'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/19b1961b213287e0279737c86d423374_1777963514.jpeg",
+        "prompt": "9:16 vertical portrait. An attractive woman in her late 20s sitting in driver seat of a modern car. Holding Amul Kool Cafe Classic Latte up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/bca027ebf8f2d60017dbe1d2a063d554_1777963714_ocfvdqi7.mp4",
+        "prompt": "9:16 vertical UGC video. A young man in his mid-20s sitting in parked car, Amul Kool Cafe Classic Latte resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Oh my gosh, this is so good!\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Oh my gosh, this is so good!"
+  },
+  {
     "id": "1777957900000",
     "createdAt": 1777957900000,
     "productName": "BEARDO Whisky Smoke Eau De Parfum 50 ML",
