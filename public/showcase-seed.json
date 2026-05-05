@@ -1,5 +1,48 @@
 [
   {
+    "id": "1777957900000",
+    "createdAt": 1777957900000,
+    "productName": "BEARDO Whisky Smoke Eau De Parfum 50 ML",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/d5f8030017a6c640f29a52026ec0eb73_1777957609.jpeg",
+        "prompt": "Product photography of BEARDO Whisky Smoke Eau De Parfum 50 ML on a clean dark grey background. The bottle is centered and sharp. Scattered around it: oak wood chips, a glass of whisky, and a wisp of smoke. At the top-left, bold serif headline reads 'UNLEASH YOUR INNER CHARM'. Bottom strip shows 'LONG-LASTING BOLD FRAGRANCE'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/na2/cc76415f8b0fbdb908424e7151e3611f1940432.jpeg",
+        "prompt": "Amazon listing infographic for BEARDO Whisky Smoke Eau De Parfum 50 ML. Dark amber and black color scheme matching brand. Left side: product photo with floating stylized whisky notes and smoke wisps. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'BOLD & ALLURING AROMA', 'LONG-LASTING IMPRESSION', 'PREMIUM BLENDED INTENSITY', 'CONFIDENCE BOOSTER', 'PERFECT FOR NIGHTS OUT'. Top headline: 'THE ESSENCE OF MASCULINITY'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/na2/187c504db13024f029f420e67b5a38c51375679.jpeg",
+        "prompt": "Amazon listing lifestyle photo for BEARDO Whisky Smoke Eau De Parfum 50 ML. A dimly lit, sophisticated bar lounge. A man in his late 30s, dressed in a sharp suit, is shown casually leaning against a bar, holding a whisky glass. The product is visible on the bar counter in the foreground. Headline overlay: 'MAKE YOUR MARK'. Subtext: 'COMMAND ATTENTION WITH EVERY SPRAY'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/4c9b17ac9ffeb374fef881da6407e761_1777957279.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive man in his early 30s sitting in driver seat of a modern car. Holding BEARDO Whisky Smoke Eau De Parfum 50 ML up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/155962e220b536dbf14b84f39b325ca0_1777957755_ok6f5abh.mp4",
+        "prompt": "9:16 vertical UGC video. Man in his late 20s sitting in parked car, BEARDO Whisky Smoke Eau De Parfum 50 ML resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Wow, this is truly captivating.\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wow, this is truly captivating."
+  },
+  {
     "id": "1777923902000",
     "createdAt": 1777923902000,
     "productName": "NESCAFÉ Classic Soluble Coffee Powder",
