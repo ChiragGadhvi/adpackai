@@ -1,5 +1,239 @@
 [
   {
+    "id": "1778423100000",
+    "createdAt": 1778423100000,
+    "productName": "Colgate MaxFresh Plax Mouthwash Freshmint (GPT)",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/gpt-image-2-apimart/1778422798128-zb9ykb2byjd.png",
+        "prompt": "Product photography of Colgate MaxFresh Plax Mouthwash Freshmint on a clean white background. The bottle is centered and sharp. Scattered around it: fresh mint leaves, and ice cubes. At the top-left, bold serif headline reads '10X LONGER COOLING'. Bottom strip shows 'REMOVES 99% GERMS AND NO ALCOHOL'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/gpt-image-2-apimart/1778422781434-4oeychutao7.png",
+        "prompt": "Amazon listing infographic for Colgate MaxFresh Plax Mouthwash Freshmint. Green and white color scheme matching brand. Left side: product photo with floating fresh mint leaves and sparkling cool effects. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: '10X Longer Cooling', 'Removes 99% Germs', 'Freshmint Flavor', 'Zero Alcohol Formula', 'Long-lasting Fresh Breath'. Top headline: 'EXPERIENCE MAX FRESHNESS'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/images/chatgpt/bf34b238674a477ec301fa15df7e513c_ffadb08bd69446dcb823e0d2c0b5885a.png",
+        "prompt": "Amazon listing lifestyle photo for Colgate MaxFresh Plax Mouthwash Freshmint. A bright modern bathroom. A man in his late 20s, with a confident smile, is looking in the mirror after using mouthwash. The product is visible in the foreground on the vanity. Headline overlay: 'CONFIDENCE THAT LASTS ALL DAY'. Subtext: 'Unleash Your Freshest Smile'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/images/chatgpt/604a07ba9f03840655391919d37cb1c1_fad6edd639274b2c951f4d02b6cb4aa1.png",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Colgate MaxFresh Plax Mouthwash Freshmint up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      }
+    ]
+  },
+  {
+    "id": "1778423000000",
+    "createdAt": 1778423000000,
+    "productName": "Colgate MaxFresh Plax Mouthwash Freshmint (Alt)",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/8a3de496f155bc9e76377ae354e66070_1778422726255.jpeg",
+        "prompt": "Product photography of Colgate MaxFresh Plax Mouthwash Freshmint on a clean white background. The bottle is centered and sharp. Scattered around it: fresh mint leaves, and ice cubes. At the top-left, bold serif headline reads '10X LONGER COOLING'. Bottom strip shows 'REMOVES 99% GERMS AND NO ALCOHOL'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/8388bf357464ad3874b82fe8e9a57f2d_1778422725.jpeg",
+        "prompt": "Amazon listing infographic for Colgate MaxFresh Plax Mouthwash Freshmint. Green and white color scheme matching brand. Left side: product photo with floating fresh mint leaves and sparkling cool effects. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: '10X Longer Cooling', 'Removes 99% Germs', 'Freshmint Flavor', 'Zero Alcohol Formula', 'Long-lasting Fresh Breath'. Top headline: 'EXPERIENCE MAX FRESHNESS'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/ggc/947491acbae14deb602ffe49dc4ea17c_1778422749676.png",
+        "prompt": "Amazon listing lifestyle photo for Colgate MaxFresh Plax Mouthwash Freshmint. A bright modern bathroom. A man in his late 20s, with a confident smile, is looking in the mirror after using mouthwash. The product is visible in the foreground on the vanity. Headline overlay: 'CONFIDENCE THAT LASTS ALL DAY'. Subtext: 'Unleash Your Freshest Smile'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/219577b16f3b55d806c7ff076a99d7a6_1778422729.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Colgate MaxFresh Plax Mouthwash Freshmint up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      }
+    ]
+  },
+  {
+    "id": "1778348900000",
+    "createdAt": 1778348900000,
+    "productName": "BEARDO Whisky Smoke Eau De Parfum 50 ML (Alt)",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/01660529bf555d507eb80407a1f41895_1778348698.jpeg",
+        "prompt": "Product photography of BEARDO Whisky Smoke Eau De Parfum on a clean charcoal grey background. The bottle is centered and sharp. Scattered around it: oak wood chips, a small vintage glass of whisky, and a wisp of smoke. At the top-left, bold serif headline reads 'COMMAND ATTENTION'. Bottom strip shows 'ALLURING & LONG-LASTING'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/107d1e373d26c5790196a6a9037a2ed3_1778348679.jpeg",
+        "prompt": "Amazon listing infographic for BEARDO Whisky Smoke Eau De Parfum. Black, deep amber, and white color scheme matching brand. Left side: product photo with floating smoke wisps and oak leaves. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'UNFORGETTABLE AROMA', 'SIGNATURE MASCULINE SCENT', 'BOOSTS CONFIDENCE', 'PREMIUM CRAFTSMANSHIP', 'IDEAL FOR MODERN MAN'. Top headline: 'YOUR SIGNATURE SCENT'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/ca542f2b7cbc7e923b0a0fc55a552877_1778348737.jpeg",
+        "prompt": "Amazon listing lifestyle photo for BEARDO Whisky Smoke Eau De Parfum. A dimly lit, upscale lounge with leather armchairs. A man in his 30s wearing a well-tailored dark suit is shown confidently adjusting his cuff. The product is visible in the foreground on a polished wooden table next to a glass of whisky. Headline overlay: 'THE ESSENCE OF SUCCESS'. Subtext: 'LEAVE A LASTING IMPRESSION'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/2d54284cd47be5e8345cdbb37e5a43d5_1778348776.jpeg",
+        "prompt": "9:16 vertical portrait. A stylish man in his early 30s sitting in driver seat of a modern luxury car. Holding BEARDO Whisky Smoke Eau De Parfum up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      }
+    ]
+  },
+  {
+    "id": "1778422891000",
+    "createdAt": 1778422891000,
+    "productName": "Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/p/0e8d19e3269d32cc83677266e06aee07_1_1778422828_2574.png",
+        "prompt": "Product photography of Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor on a clean beige background. The pouch is centered and sharp. Scattered around it: fresh pumpkin slices, ripe blueberries, and several individual dog treats. At the top-left, bold serif headline reads 'LIP SMACKIN' GOOD'. Bottom strip shows 'MADE WITH SUPERFOODS & ONLY 8 CALORIES'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/6839a944a3ef4e2bf5ef96b0e84269d1_1778422742.jpeg",
+        "prompt": "Amazon listing infographic for Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor. Blue and purple color scheme matching brand. Left side: product photo with floating pumpkin slices and blueberry elements. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'DELICIOUS PUMPKIN & BLUEBERRY FLAVOR', 'ONLY 8 CALORIES PER TREAT', 'MADE WITH SUPERFOODS', '#1 INGREDIENT IS PUMPKIN', 'BAKED IN THE USA'. Top headline: 'HEALTHY & TASTY REWARDS FOR YOUR BEST FRIEND'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/49607f139dc94664b9ca792406158c8c_1778422746.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor. A sunny backyard. A golden retriever puppy is shown gently taking a treat from a woman in her 30s' hand, who is smiling warmly. The product pouch is visible in the foreground next to a small bowl of treats. Headline overlay: 'HEALTHY TREATS FOR HAPPY PAWS'. Subtext: 'YOU CAN FEEL GOOD ABOUT GIVING'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/1ea431b0a1f106a9f57d0185e09886ab_1778422800.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/k/abceeb6d6fa2546addc6e13cf6217b0d_1_1778422940_5515.mp4",
+        "prompt": "9:16 vertical UGC video. Young woman in her 20s sitting in parked car, Fruitables Lip Smackin' Dog Treats Pumpkin & Blueberry Flavor resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Oh my gosh, these treats are actually perfect.\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Oh my gosh, these treats are actually perfect."
+  },
+  {
+    "id": "1778409552000",
+    "createdAt": 1778409552000,
+    "productName": "BEARDO Whisky Smoke Eau De Parfum 50 ML",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/a5df6df4037fb75c4535b79fa3c371d5_1778409381.jpeg",
+        "prompt": "Product photography of BEARDO Whisky Smoke Eau De Parfum 50 ML on a clean dark grey background. The bottle is centered and sharp. Scattered around it: dried whiskey barrel chips, a single oak leaf, and a small glass of amber liquid. At the top-left, bold serif headline reads 'IRRESISTIBLE MASCULINE AROMA'. Bottom strip shows 'LONG-LASTING EDP'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/886d5ff215dcac43c3aac4f2ee552998_1778409406.jpeg",
+        "prompt": "Amazon listing infographic for BEARDO Whisky Smoke Eau De Parfum 50 ML. Dark amber and black color scheme matching brand. Left side: product photo with floating smoke wisps and oak wood textures. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: 'UNFORGETTABLE SCENT', 'BOOSTS CONFIDENCE', 'CAPTIVATING MYSTERY', 'PREMIUM CRAFTSMANSHIP', 'ALL-DAY FRESHNESS'. Top headline: 'MASTER YOUR PRESENCE'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/ef6f99fcb6a00b5a09597c58d3dfb8e5_1778409416.jpeg",
+        "prompt": "Amazon listing lifestyle photo for BEARDO Whisky Smoke Eau De Parfum 50 ML. A dimly lit, upscale lounge with leather armchairs. A man in his 30s wearing a crisp dark shirt is shown confidently adjusting his watch, with the product bottle subtly placed on a polished wooden side table next to him. Headline overlay: 'LEAVE A LASTING IMPRESSION'. Subtext: 'THE ESSENCE OF UNCOMPROMISING CHARM'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f8d3249242964129758449d1345b80e2_1778409368.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive man in his late 20s sitting in driver seat of a modern car. Holding BEARDO Whisky Smoke Eau De Parfum 50 ML up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/r/05006163312a4561bb6734506f11c678_1778409552_clrdk1rb.mp4",
+        "prompt": "9:16 vertical UGC video. Man in his 30s sitting in parked car, BEARDO Whisky Smoke Eau De Parfum 50 ML resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Wow, this whisky smoke perfume actually smells incredible.\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wow, this whisky smoke perfume actually smells incredible."
+  },
+  {
+    "id": "1778348472000",
+    "createdAt": 1778348472000,
+    "productName": "Colgate MaxFresh Plax Mouthwash Freshmint",
+    "assets": [
+      {
+        "label": "Listing 1",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/f7e82c4abadb6b9e94793be70baffba2_1778348340.jpeg",
+        "prompt": "Product photography of Colgate MaxFresh Plax Mouthwash Freshmint on a clean white background. The bottle is centered and sharp. Scattered around it: fresh mint leaves. At the top-left, bold serif headline reads '10x Longer Cooling Freshness'. Bottom strip shows 'Removes 99% Germs'. Soft natural lighting, photorealistic, high resolution, studio quality, ecommerce product photo.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 2",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/98932cb9db9f71b768244a6da58a200c_1778348267.jpeg",
+        "prompt": "Amazon listing infographic for Colgate MaxFresh Plax Mouthwash Freshmint. Green and white color scheme matching brand. Left side: product photo with floating fresh mint leaves. Right side: vertical list of 5 benefit rows, each with a small icon and bold text: '10X Longer Cooling', 'Removes 99% Germs', 'No Alcohol Formula', 'Freshmint Flavor', 'Prevents Bad Breath'. Top headline: 'Experience MaxFresh Confidence'. Clean modern layout, ecommerce infographic style, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "Listing 3",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/d467554a9e4cdc15822296442e323143_1778348314.jpeg",
+        "prompt": "Amazon listing lifestyle photo for Colgate MaxFresh Plax Mouthwash Freshmint. A brightly lit modern bathroom. A man in his 30s is shown rinsing with the mouthwash, looking refreshed. The product is visible in the foreground on the counter. Headline overlay: 'Unstoppable Freshness'. Subtext: 'Start Your Day Right'. Warm, authentic, professional lifestyle photography, ecommerce listing image, high resolution.",
+        "aspectRatio": "1/1"
+      },
+      {
+        "label": "UGC Photo",
+        "type": "image",
+        "url": "https://tempfile.aiquickdraw.com/vnp/2536f2c1984337185eef01c69d9a7868_1778348274.jpeg",
+        "prompt": "9:16 vertical portrait. Attractive woman in her late 20s sitting in driver seat of a modern car. Holding Colgate MaxFresh Plax Mouthwash Freshmint up toward camera with both hands. Genuine wide-eyed surprised and delighted expression. Product label clearly facing camera. Warm golden sunlight streaming through windshield, soft bokeh of car interior in background. Authentic iPhone front-camera UGC selfie style. ISO 800 film grain. Photorealistic. No text overlays.",
+        "aspectRatio": "9/16"
+      },
+      {
+        "label": "Video",
+        "type": "video",
+        "url": "https://tempfile.aiquickdraw.com/k/2b8b97040dc8fd6a4329d467e5434851_1_1778348472_2087.mp4",
+        "prompt": "9:16 vertical UGC video. Young man in his 20s sitting in parked car, Colgate MaxFresh Plax Mouthwash Freshmint resting on passenger seat. Person reaches over, picks it up, holds it toward camera with a genuine surprised reaction. Warm sunlight through car windows, authentic handheld shaky iPhone camera feel. Close-up on product label mid-shot. TikTok viral UGC style. Photorealistic. The person says: \"Wow, this Colgate mouthwash actually keeps my breath fresh all day.\"",
+        "aspectRatio": "9/16"
+      }
+    ],
+    "adScript": "Wow, this Colgate mouthwash actually keeps my breath fresh all day."
+  },
+  {
     "id": "1777963900000",
     "createdAt": 1777963900000,
     "productName": "Amul Kool Cafe Classic Latte",

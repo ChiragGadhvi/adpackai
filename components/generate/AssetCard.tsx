@@ -20,6 +20,7 @@ interface AssetCardProps {
 export function AssetCard({ label, type, status, url, prompt, compact = false, aspectRatio, onView }: AssetCardProps) {
   const [copied, setCopied] = useState(false);
   const [promptOpen, setPromptOpen] = useState(false);
+  const [mediaLoaded, setMediaLoaded] = useState(false);
 
   function copyPrompt() {
     if (!prompt) return;
@@ -88,16 +89,33 @@ export function AssetCard({ label, type, status, url, prompt, compact = false, a
       {/* Asset display — skeleton/idle uses fixed aspect ratio; done media shows at natural ratio */}
       {isDone ? (
         <div
-          className={`overflow-hidden rounded-xl border${onView ? " cursor-zoom-in" : ""}`}
-          style={{ borderColor: "rgba(0,0,0,0.06)", background: "#000" }}
+          className={`overflow-hidden rounded-xl border relative${onView ? " cursor-zoom-in" : ""}`}
+          style={{
+            borderColor: "rgba(0,0,0,0.06)",
+            background: "#000",
+            aspectRatio: !mediaLoaded ? resolvedAspectRatio : undefined,
+          }}
           onClick={onView}
         >
+          {!mediaLoaded && (
+            <div className="absolute inset-0">
+              <Skeleton
+                variant={type === "video" ? "video" : "image"}
+                className="w-full h-full rounded-none"
+              />
+            </div>
+          )}
           {type === "image" ? (
             <img
               src={url}
               alt={label}
               className="w-full h-auto block"
-              style={{ animation: "fade-rise 0.5s ease-out forwards" }}
+              style={{
+                opacity: mediaLoaded ? 1 : 0,
+                animation: mediaLoaded ? "fade-rise 0.4s ease-out forwards" : undefined,
+                transition: "opacity 0.3s ease",
+              }}
+              onLoad={() => setMediaLoaded(true)}
             />
           ) : (
             <video
@@ -108,7 +126,12 @@ export function AssetCard({ label, type, status, url, prompt, compact = false, a
               loop
               playsInline
               className="w-full h-auto block"
-              style={{ animation: "fade-rise 0.5s ease-out forwards" }}
+              style={{
+                opacity: mediaLoaded ? 1 : 0,
+                animation: mediaLoaded ? "fade-rise 0.4s ease-out forwards" : undefined,
+                transition: "opacity 0.3s ease",
+              }}
+              onCanPlay={() => setMediaLoaded(true)}
               onClick={(e) => e.stopPropagation()}
             />
           )}

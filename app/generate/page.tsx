@@ -221,40 +221,51 @@ function ShowcaseCard({ saved, onDelete, readOnly = false }: { saved: SavedPack;
       </div>
 
       {/* Asset bento grid */}
-      <div className="flex flex-col gap-2">
-        {/* Listing images — 3 columns, square */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-          {saved.assets.map((asset, i) => asset.aspectRatio !== "9/16" ? (
-            <AssetCard
-              key={asset.label}
-              label={asset.label}
-              type={asset.type}
-              status="done"
-              url={asset.url}
-              prompt={asset.prompt}
-              aspectRatio="1/1"
-              compact
-              onView={() => setCarouselIdx(i)}
-            />
-          ) : null)}
-        </div>
-        {/* UGC + video — 2 columns, reduced height (4:5 in gallery) */}
-        <div className="grid grid-cols-2 gap-2">
-          {saved.assets.map((asset, i) => asset.aspectRatio === "9/16" ? (
-            <AssetCard
-              key={asset.label}
-              label={asset.label}
-              type={asset.type}
-              status="done"
-              url={asset.url}
-              prompt={asset.prompt}
-              aspectRatio="4/5"
-              compact
-              onView={() => setCarouselIdx(i)}
-            />
-          ) : null)}
-        </div>
-      </div>
+      {(() => {
+        const listingAssets = saved.assets.map((a, i) => ({ ...a, idx: i })).filter(a => a.aspectRatio !== "9/16");
+        const ugcAssets = saved.assets.map((a, i) => ({ ...a, idx: i })).filter(a => a.aspectRatio === "9/16");
+        return (
+          <div className="flex flex-col gap-2">
+            {/* Listing images — up to 3 columns, square */}
+            {listingAssets.length > 0 && (
+              <div className={`grid gap-2 ${listingAssets.length === 1 ? "grid-cols-1" : listingAssets.length === 2 ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
+                {listingAssets.map(asset => (
+                  <AssetCard
+                    key={asset.label}
+                    label={asset.label}
+                    type={asset.type}
+                    status="done"
+                    url={asset.url}
+                    prompt={asset.prompt}
+                    aspectRatio="1/1"
+                    compact
+                    onView={() => setCarouselIdx(asset.idx)}
+                  />
+                ))}
+              </div>
+            )}
+            {/* UGC + video — adaptive columns */}
+            {ugcAssets.length > 0 && (
+              <div className={`grid gap-2 ${ugcAssets.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}
+                style={ugcAssets.length === 1 ? { maxWidth: 220 } : undefined}>
+                {ugcAssets.map(asset => (
+                  <AssetCard
+                    key={asset.label}
+                    label={asset.label}
+                    type={asset.type}
+                    status="done"
+                    url={asset.url}
+                    prompt={asset.prompt}
+                    aspectRatio="4/5"
+                    compact
+                    onView={() => setCarouselIdx(asset.idx)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })()}
 
       {carouselIdx !== null && carouselAssets.length > 0 && (
         <Carousel
@@ -540,6 +551,7 @@ export default function GeneratePage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch { /* */ }
   }
 
+  const [showContactPopup, setShowContactPopup] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [exportDone, setExportDone] = useState(false);
 
@@ -749,8 +761,8 @@ export default function GeneratePage() {
             )}
 
             <button
-              onClick={handleGenerate}
-              disabled={(!image && !scrapedProduct) || isGenerating}
+              onClick={() => setShowContactPopup(true)}
+              disabled={isGenerating}
               className="flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-medium text-white transition-all hover:scale-[1.02] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100"
               style={{ background: "#000", fontFamily: "var(--font-inter)" }}
             >
@@ -848,6 +860,75 @@ export default function GeneratePage() {
             />
           )}
         </div>
+
+        {/* Contact popup */}
+        {showContactPopup && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)" }}
+            onClick={() => setShowContactPopup(false)}
+          >
+            <div
+              className="relative w-full max-w-sm rounded-2xl bg-white p-8 flex flex-col items-center gap-4 shadow-2xl"
+              style={{ fontFamily: "var(--font-inter)" }}
+              onClick={e => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowContactPopup(false)}
+                className="absolute top-4 right-4 text-zinc-300 hover:text-zinc-500 transition-colors"
+              >
+                <X size={16} />
+              </button>
+
+              <div className="flex flex-col items-center gap-2">
+                <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="20" fill="#000000" />
+                  <line x1="11" y1="11" x2="29" y2="29" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+                  <line x1="29" y1="11" x2="11" y2="29" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
+                  <circle cx="20" cy="20" r="3.5" fill="white" />
+                </svg>
+                <span style={{ fontFamily: "var(--font-instrument)", fontSize: "1.1rem", letterSpacing: "-0.02em", color: "#000" }}>
+                  AdPack<sup style={{ fontSize: "0.5em", verticalAlign: "super" }}>®</sup>
+                </span>
+              </div>
+
+              <div className="text-center">
+                <h2
+                  className="font-normal mb-1"
+                  style={{
+                    fontFamily: "var(--font-instrument)",
+                    fontSize: "1.4rem",
+                    letterSpacing: "-0.02em",
+                    color: "#000",
+                  }}
+                >
+                  Like what you see?
+                </h2>
+                <p className="text-sm" style={{ color: "#6F6F6F" }}>
+                  AdPack AI is available to buy — reach out if you&apos;re interested.
+                </p>
+              </div>
+
+              <a
+                href="mailto:chiraggadhvi7272@gmail.com"
+                className="flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-medium text-white transition-all hover:opacity-80"
+                style={{ background: "#000" }}
+              >
+                chiraggadhvi7272@gmail.com
+              </a>
+
+              <a
+                href="https://chiraggadhvi.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm transition-opacity hover:opacity-60"
+                style={{ color: "#6F6F6F" }}
+              >
+                chiraggadhvi.in ↗
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* ── Showcase gallery ── */}
         {(savedPacks.length > 0 || seedPacks.length > 0) && (
